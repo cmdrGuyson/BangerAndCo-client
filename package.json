@@ -6,9 +6,15 @@
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.1",
     "@testing-library/user-event": "^12.2.0",
+    "bootstrap": "^4.5.3",
+    "node-sass": "^4.14.1",
     "react": "^17.0.1",
+    "react-bootstrap": "^1.4.0",
+    "react-date-picker": "^8.0.3",
     "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
+    "react-time-picker": "^4.0.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

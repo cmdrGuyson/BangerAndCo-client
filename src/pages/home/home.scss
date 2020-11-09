@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+
+.top_image {
+  height: 600px;
+  width: 100%;
+  object-fit: cover;
+  background-image: url("../../images/carback.jpg");
+  box-shadow: -1px 166px 252px 63px rgba(0, 0, 0, 0.92) inset;
+  -webkit-box-shadow: -1px 166px 252px 63px rgba(0, 0, 0, 0.92) inset;
+  -moz-box-shadow: -1px 166px 252px 63px rgba(0, 0, 0, 0.92) inset;
+}
+
+.title {
+  font-family: "Poppins", sans-serif;
+  color: white;
+  font-weight: bold;
+  font-size: 3rem;
+  margin-top: 50px;
+}
+
+.description {
+  font-family: "Poppins", sans-serif;
+  color: white;
+  margin-bottom: 70px;
+}
+
+.about-title {
+  font-family: "Poppins", sans-serif;
+  color: black;
+  font-weight: bold;
+  font-size: 3rem;
+  margin-top: 280px;
+}
+
+.about-description {
+  font-family: "Poppins", sans-serif;
+  color: black;
+  margin-bottom: 70px;
+}

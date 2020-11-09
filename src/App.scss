@@ -1,0 +1,11 @@
+@import "~bootstrap/scss/bootstrap";
+
+body {
+  background: rgb(252, 255, 253);
+  background: radial-gradient(
+    circle,
+    rgba(252, 255, 253, 1) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(215, 215, 215, 1) 100%
+  );
+}
