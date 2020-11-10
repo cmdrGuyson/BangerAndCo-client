@@ -1,9 +1,59 @@
 p {
-  color: rgb(177, 177, 177);
+	font-weight: 500;
+	color: rgb(177, 177, 177);
 }
 
 .box {
-  box-shadow: -1px 166px 249px 63px rgba(0, 0, 0, 0.4) inset;
-  -webkit-box-shadow: -1px 166px 249px 63px rgba(0, 0, 0, 0.4) inset;
-  -moz-box-shadow: -1px 166px 249px 63px rgba(0, 0, 0, 0.4) inset;
+	box-shadow: -1px 166px 249px 63px rgba(0, 0, 0, 0.4) inset;
+	-webkit-box-shadow: -1px 166px 249px 63px rgba(0, 0, 0, 0.4) inset;
+	-moz-box-shadow: -1px 166px 249px 63px rgba(0, 0, 0, 0.4) inset;
+	padding: 30px;
+	padding-bottom: 50px;
+}
+
+input {
+	color: black;
+	background-color: white;
+	border: solid 1px black;
+	padding: 10px;
+	margin: 2px;
+}
+
+.button-find {
+	width: 60%;
+	font-weight: bold;
+	// background: linear-gradient(
+	// 	90deg,
+	// 	rgba(55, 59, 68, 1) 0%,
+	// 	rgba(66, 134, 244, 1) 65%
+	// );
+	background: linear-gradient(
+		90deg,
+		rgba(129, 147, 191, 1) 18%,
+		rgba(66, 134, 244, 1) 65%
+	);
+	height: 80%;
+	border: none;
+	font-size: 1rem;
+	&:hover {
+		background-image: linear-gradient(
+			109.6deg,
+			rgba(5, 84, 94, 1) 16%,
+			#bbb 91.1%
+		);
+		color: rgb(177, 177, 177);
+		// background-image: linear-gradient(
+		// 	to right,
+		// 	#eaeaea,
+		// 	#dbdbdb,
+		// 	#f2f2f2,
+		// 	#ada996
+		// );
+	}
+}
+
+.col-button {
+	display: flex;
+	align-items: center;
+	margin-top: 2.25rem;
 }
