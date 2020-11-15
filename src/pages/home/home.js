@@ -10,6 +10,7 @@ import Navbar from "../../components/navbar/navbar";
 export default function home() {
 	return (
 		<div className="top_image">
+			<Navbar />
 			<Container style={{ textAlign: "center" }}>
 				<h2 className="title">Rent Now!</h2>
 				<p className="description">

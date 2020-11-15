@@ -28,7 +28,7 @@ export default function navbar() {
 						<Button
 							variant="outline-light"
 							size="sm"
-							href="#"
+							href="/register"
 							className="button"
 						>
 							Register
