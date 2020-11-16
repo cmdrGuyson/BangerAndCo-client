@@ -16,20 +16,21 @@ export default function Login() {
           className="form"
           value={value}
           onChange={(e) => changeHandler(e.target.value)}
+          required
         />
       </Form.Group>
     );
     return input;
   };
 
-  const [email, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const userInput = useInput({
-    type: "text",
+  const emailInput = useInput({
+    type: "email",
     value: email,
     label: "Email address",
-    changeHandler: setUsername,
+    changeHandler: setEmail,
   });
   const passwordInput = useInput({
     type: "password",
@@ -62,7 +63,7 @@ export default function Login() {
               <Card.Body>
                 <h2 className="logo">Banger&Co</h2>
                 <Form>
-                  {userInput}
+                  {emailInput}
                   {passwordInput}
                   <Button
                     variant="primary"
