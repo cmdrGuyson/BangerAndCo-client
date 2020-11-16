@@ -1,60 +1,61 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand&family=Tangerine:wght@700&display=swap");
-.main {
-	height: 100vh;
-	width: 100%;
-	object-fit: cover;
-	background-image: url("../../images/login_back.jpg");
-	box-shadow: -1px 166px 252px 63px rgba(0, 0, 0, 0.92) inset;
-	-webkit-box-shadow: -1px 166px 252px 63px rgba(0, 0, 0, 0.92) inset;
-	-moz-box-shadow: -1px 166px 252px 63px rgba(0, 0, 0, 0.92) inset;
+.main_register {
+  width: 100%;
+  background-image: url("../../images/register_back.jpg");
+  background-size: cover;
+  box-shadow: -1px 166px 252px 63px rgba(0, 0, 0, 0.98) inset;
+  -webkit-box-shadow: -1px 166px 252px 63px rgba(0, 0, 0, 0.98) inset;
+  -moz-box-shadow: -1px 166px 252px 63px rgba(0, 0, 0, 0.98) inset;
 }
 
 .title {
-	font-family: "Poppins", sans-serif;
-	color: white;
-	font-weight: bold;
-	font-size: 3rem;
-	margin-top: 50px;
+  font-family: "Poppins", sans-serif;
+  color: white;
+  font-weight: bold;
+  font-size: 3rem;
+  margin-top: 50px;
 }
 
 .description {
-	font-family: "Poppins", sans-serif;
-	color: white;
-	margin-bottom: 70px;
+  font-family: "Poppins", sans-serif;
+  color: white;
+  margin-bottom: 70px;
+  margin-top: 50px;
 }
 
 .card {
-	height: 100%;
-	width: 80%;
-	background-color: #00000059;
-	border-radius: 10%;
-	color: white;
+  height: 100%;
+  width: 80%;
+  background-color: #00000059;
+  border-radius: 10%;
+  color: white;
 }
 
 .logo {
-	font-family: "Tangerine", cursive;
-	font-size: 2.5rem;
-	text-align: center;
-	font-weight: bolder;
-	padding-bottom: 20px;
+  font-family: "Tangerine", cursive;
+  font-size: 2.5rem;
+  text-align: center;
+  font-weight: bolder;
+  padding-bottom: 20px;
+  margin-bottom: 45px;
 }
 
 .form {
-	width: 50%;
-	margin-left: 25%;
+  width: 80%;
+  margin-left: 10%;
 }
 
 .submit-button {
-	width: 50%;
-	margin-top: 1rem;
+  width: 50%;
+  margin-top: 50px;
 }
 
 .label {
-	font-weight: bold;
+  font-weight: bold;
 }
 
-.container-main {
-	margin-top: 100px;
-	text-align: center;
-	font-family: "Poppins", sans-serif;
+.container-main-register {
+  margin-top: 20px;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
 }
