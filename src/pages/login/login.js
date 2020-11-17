@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 
@@ -11,38 +11,18 @@ import { connect } from "react-redux";
 import { loginUser } from "../../redux/actions/userActions";
 
 function Login(props) {
-  const useInput = ({ type, value, label, placeholder, changeHandler }) => {
-    const input = (
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label className="label"> {label} </Form.Label>
-        <Form.Control
-          type={type}
-          placeholder={placeholder}
-          className="form"
-          value={value}
-          onChange={(e) => changeHandler(e.target.value)}
-          required
-        />
-      </Form.Group>
-    );
-    return input;
-  };
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
-  const emailInput = useInput({
-    type: "email",
-    value: email,
-    label: "Email address",
-    changeHandler: setEmail,
-  });
-  const passwordInput = useInput({
-    type: "password",
-    value: password,
-    label: "Password",
-    changeHandler: setPassword,
-  });
+  const {
+    UI: { loading },
+  } = props;
+
+  useEffect(() => {
+    if (props.UI.errors) setErrors(props.UI.errors.error);
+    console.log(errors);
+  }, [props]);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -74,14 +54,40 @@ function Login(props) {
               <Card.Body>
                 <h2 className="logo">Banger&Co</h2>
                 <Form onSubmit={handleLogin}>
-                  {emailInput}
-                  {passwordInput}
+                  <Form.Group controlId="formBasicEmail">
+                    <Form.Label className="label"> Email </Form.Label>
+                    <Form.Control
+                      type="email"
+                      className={errors.email ? "form is-invalid" : "form"}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                    <p className="error-text" hidden={!errors.email}>
+                      {errors.email}
+                    </p>
+                  </Form.Group>
+                  <Form.Group controlId="formBasicPassword">
+                    <Form.Label className="label"> Password </Form.Label>
+                    <Form.Control
+                      type="password"
+                      className={errors.password ? "form is-invalid" : "form"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                    <p className="error-text" hidden={!errors.password}>
+                      {errors.password}
+                    </p>
+                  </Form.Group>
+
                   <Button
                     variant="primary"
                     type="submit"
                     className="submit-button"
+                    disabled={loading}
                   >
-                    Submit
+                    {loading ? "Logging in..." : "Login"}
                   </Button>
                 </Form>
               </Card.Body>

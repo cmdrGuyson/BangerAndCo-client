@@ -140,6 +140,10 @@ const Register = (props) => {
   );
 };
 
+const handleRegister = async (values) => {
+  console.log(values);
+};
+
 export default withFormik({
   validationSchema: yup.object({
     firstName: yup.string().required("Required"),
@@ -178,6 +182,6 @@ export default withFormik({
     confirmPassword: "",
   }),
   handleSubmit: (values) => {
-    console.log("Handle submit here");
+    handleRegister(values);
   },
 })(Register);
