@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 import Navbar from "../../components/navbar/navbar";
 
 import "./login.scss";
 
-export default function Login() {
+//REDUX
+import { connect } from "react-redux";
+import { loginUser } from "../../redux/actions/userActions";
+
+function Login(props) {
   const useInput = ({ type, value, label, placeholder, changeHandler }) => {
     const input = (
       <Form.Group controlId="formBasicEmail">
@@ -39,6 +44,12 @@ export default function Login() {
     changeHandler: setPassword,
   });
 
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    const data = { email, password };
+    props.loginUser(data, props.history);
+  };
+
   return (
     <div className="login_main">
       <Navbar />
@@ -62,7 +73,7 @@ export default function Login() {
             <Card className="card">
               <Card.Body>
                 <h2 className="logo">Banger&Co</h2>
-                <Form>
+                <Form onSubmit={handleLogin}>
                   {emailInput}
                   {passwordInput}
                   <Button
@@ -81,3 +92,20 @@ export default function Login() {
     </div>
   );
 }
+
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  user: state.user,
+  UI: state.UI,
+});
+
+const mapActionsToProps = {
+  loginUser,
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(Login);
