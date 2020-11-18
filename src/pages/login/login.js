@@ -20,11 +20,14 @@ function Login(props) {
   } = props;
 
   useEffect(() => {
-    if (props.UI.errors) setErrors(props.UI.errors.error);
-    console.log(errors);
-  }, [props]);
+    props.UI.errors && setErrors(props.UI.errors.error);
+  }, [props.UI.errors]);
 
-  const handleLogin = async (event) => {
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
+
+  const handleLogin = (event) => {
     event.preventDefault();
     const data = { email, password };
     props.loginUser(data, props.history);

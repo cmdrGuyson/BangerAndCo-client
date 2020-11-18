@@ -9,7 +9,10 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../redux/actions/userActions";
 
 function navbar(props) {
-  const { authenticated } = props;
+  const {
+    authenticated,
+    user: { role },
+  } = props;
 
   const handleLogout = () => {
     props.logoutUser();
@@ -28,6 +31,11 @@ function navbar(props) {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link>View Fleet</Nav.Link>
             <Nav.Link>Rent Car</Nav.Link>
+            {role === "admin" && (
+              <Button variant="outline-light" size="sm" className="button">
+                Admin Dashboard
+              </Button>
+            )}
             {!authenticated ? (
               <Fragment>
                 <Button
@@ -65,12 +73,14 @@ function navbar(props) {
 }
 
 navbar.propTypes = {
+  user: PropTypes.object.isRequired,
   authenticated: PropTypes.bool.isRequired,
   logoutUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   authenticated: state.user.authenticated,
+  user: state.user,
 });
 
 export default connect(mapStateToProps, { logoutUser })(navbar);

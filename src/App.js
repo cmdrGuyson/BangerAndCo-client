@@ -7,6 +7,7 @@ import "./App.scss";
 import home from "./pages/home/home";
 import Login from "./pages/login/login";
 import Register from "./pages/register/register";
+import UploadImages from "./pages/uploadImages/uploadImages";
 
 /* REDUX */
 import { Provider } from "react-redux";
@@ -16,6 +17,7 @@ import { logoutUser, getUserData } from "./redux/actions/userActions";
 
 //Utils
 import AuthRoute from "./utils/authRoute";
+import AuthRouteHasUploaded from "./utils/authRouteHasUploaded";
 
 axios.defaults.baseURL = "http://localhost:5000";
 
@@ -42,6 +44,11 @@ function App() {
             <Route exact path="/" component={home} />
             <AuthRoute exact path="/login" component={Login} />
             <AuthRoute exact path="/register" component={Register} />
+            <AuthRouteHasUploaded
+              exact
+              path="/uploadimages"
+              component={UploadImages}
+            />
           </Switch>
         </Router>
       </Provider>

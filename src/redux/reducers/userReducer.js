@@ -1,9 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
   SET_USER,
-  SET_ERRORS,
-  CLEAR_ERRORS,
-  LOADING_UI,
   SET_UNAUTHENTICATED,
   SET_AUTHENTICATED,
   LOADING_USER,
