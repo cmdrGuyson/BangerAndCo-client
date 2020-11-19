@@ -1,8 +1,3 @@
-p {
-  font-weight: 500;
-  color: rgb(177, 177, 177);
-}
-
 .box {
   box-shadow: -1px 166px 249px 63px rgba(0, 0, 0, 0.6) inset;
   -webkit-box-shadow: -1px 166px 249px 63px rgba(0, 0, 0, 0.6) inset;
@@ -11,9 +6,11 @@ p {
   padding-bottom: 50px;
   font-family: "Poppins", sans-serif;
   font-size: 0.9rem;
+  font-weight: 500;
+  color: rgb(177, 177, 177);
 }
 
-input {
+.rent-now-input {
   color: black;
   background-color: white;
   border: solid 1px black;

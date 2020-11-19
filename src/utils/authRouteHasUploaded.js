@@ -8,24 +8,34 @@ const authRoute = ({
   authenticated,
   licenseImageURL,
   alternateIDImageURL,
+  role,
+  user,
   ...rest
-}) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      (licenseImageURL && alternateIDImageURL) || !authenticated ? (
-        <Redirect to="/" />
-      ) : (
-        <Component {...props} />
-      )
-    }
-  />
-);
+}) => {
+  console.log(user);
+
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        (licenseImageURL && alternateIDImageURL) ||
+        !authenticated ||
+        role === "admin" ? (
+          <Redirect to="/" />
+        ) : (
+          <Component {...props} />
+        )
+      }
+    />
+  );
+};
 
 const mapStateToProps = (state) => ({
   licenseImageURL: state.user.licenseImageURL,
   alternateIDImageURL: state.user.alternateIDImageURL,
   authenticated: state.user.authenticated,
+  role: state.user.role,
+  user: state.user,
 });
 
 authRoute.propTypes = {

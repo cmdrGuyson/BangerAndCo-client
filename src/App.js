@@ -4,10 +4,11 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 
 import "./App.scss";
-import home from "./pages/home/home";
+import Home from "./pages/home/home";
 import Login from "./pages/login/login";
 import Register from "./pages/register/register";
 import UploadImages from "./pages/uploadImages/uploadImages";
+import Dashboard from "./pages/dashboard/dashboard";
 
 /* REDUX */
 import { Provider } from "react-redux";
@@ -18,6 +19,7 @@ import { logoutUser, getUserData } from "./redux/actions/userActions";
 //Utils
 import AuthRoute from "./utils/authRoute";
 import AuthRouteHasUploaded from "./utils/authRouteHasUploaded";
+import AuthRouteAdmin from "./utils/authRouteAdmin";
 
 axios.defaults.baseURL = "http://localhost:5000";
 
@@ -41,7 +43,7 @@ function App() {
       <Provider store={store}>
         <Router>
           <Switch>
-            <Route exact path="/" component={home} />
+            <Route exact path="/" component={Home} />
             <AuthRoute exact path="/login" component={Login} />
             <AuthRoute exact path="/register" component={Register} />
             <AuthRouteHasUploaded
@@ -49,6 +51,7 @@ function App() {
               path="/uploadimages"
               component={UploadImages}
             />
+            <AuthRouteAdmin exact path="/dashboard" component={Dashboard} />
           </Switch>
         </Router>
       </Provider>

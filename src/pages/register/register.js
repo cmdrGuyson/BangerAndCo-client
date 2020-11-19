@@ -144,7 +144,7 @@ function Register(props) {
       <Container className="container-main-register">
         <Row>
           <Col>
-            <Card className="card">
+            <Card className="card card-input-box">
               <Card.Body>
                 <h2 className="logo">Banger&Co</h2>
                 <Form onSubmit={handleSubmit}>

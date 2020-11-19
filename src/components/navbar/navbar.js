@@ -32,7 +32,12 @@ function navbar(props) {
             <Nav.Link>View Fleet</Nav.Link>
             <Nav.Link>Rent Car</Nav.Link>
             {role === "admin" && (
-              <Button variant="outline-light" size="sm" className="button">
+              <Button
+                variant="outline-light"
+                size="sm"
+                className="button"
+                href="/dashboard"
+              >
                 Admin Dashboard
               </Button>
             )}

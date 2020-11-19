@@ -71,7 +71,7 @@ function UploadImages(props) {
       <Container className="container-main">
         <Row>
           <Col>
-            <Card className="card">
+            <Card className="card upload-card">
               <Card.Body>
                 <h2 className="logo">Banger&Co</h2>
                 <p className="upload-label">Upload an image of your license</p>

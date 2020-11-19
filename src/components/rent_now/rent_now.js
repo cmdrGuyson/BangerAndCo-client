@@ -11,13 +11,13 @@ export default function rent_now() {
       <Row>
         <Col>
           <p>Pickup Date and Time</p>
-          <input type="date" className="input"></input>
-          <input type="time"></input>
+          <input className="rent-now-input" type="date"></input>
+          <input className="rent-now-input" type="time"></input>
         </Col>
         <Col>
           <p>Dropoff Date and Time</p>
-          <input type="date"></input>
-          <input type="time"></input>
+          <input className="rent-now-input" type="date"></input>
+          <input className="rent-now-input" type="time"></input>
         </Col>
         <Col className="col-button">
           <Button variant="primary" className="search-button">

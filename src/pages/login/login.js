@@ -53,7 +53,7 @@ function Login(props) {
             </p>
           </Col>
           <Col>
-            <Card className="card">
+            <Card className="card card-input-box">
               <Card.Body>
                 <h2 className="logo">Banger&Co</h2>
                 <Form onSubmit={handleLogin}>
