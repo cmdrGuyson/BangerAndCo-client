@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+
+.user-card {
+  font-family: "Poppins", sans-serif !important;
+  position: relative;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.user-card-title {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.user-card-badge {
+  position: absolute;
+  top: 22px;
+  right: 15px;
+}

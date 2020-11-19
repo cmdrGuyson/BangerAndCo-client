@@ -1,20 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   InputGroup,
   Card,
-  Dropdown,
   Button,
-  ButtonGroup,
-  DropdownButton,
   Col,
   Row,
   FormControl,
-  CardDeck,
+  CardColumns,
 } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 import "./manageUsers.scss";
 
-export default function manageUsers() {
+import UserCard from "./userCard";
+
+//REDUX
+import { connect } from "react-redux";
+import { getAllUsers } from "../../redux/actions/dataActions";
+
+function ManageUsers(props) {
+  const [_users, setUsers] = useState([]);
+
+  const {
+    data: { users, loading },
+  } = props;
+
+  useEffect(() => {
+    props.getAllUsers();
+  }, []);
+
+  useEffect(() => {
+    users && setUsers(users);
+  }, [users]);
+
+  let usersMarkup = !loading ? (
+    _users.map((user) => <UserCard key={user._id} user={user} />)
+  ) : (
+    <p>Loading...</p>
+  );
+
   return (
     <div>
       <Card className="search-box-users">
@@ -60,46 +84,21 @@ export default function manageUsers() {
         </Card.Body>
       </Card>
 
-      <CardDeck>
-        <Card>
-          <Card.Body>
-            <Card.Title>Card title</Card.Title>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
-          </Card.Footer>
-        </Card>
-        <Card>
-          <Card.Body>
-            <Card.Title>Card title</Card.Title>
-            <Card.Text>
-              This card has supporting text below as a natural lead-in to
-              additional content.{" "}
-            </Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
-          </Card.Footer>
-        </Card>
-        <Card>
-          <Card.Body>
-            <Card.Title>Card title</Card.Title>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This card has even longer content
-              than the first to show that equal height action.
-            </Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
-          </Card.Footer>
-        </Card>
-      </CardDeck>
+      <CardColumns>{usersMarkup}</CardColumns>
     </div>
   );
 }
+
+ManageUsers.propTypes = {
+  getAllUsers: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  data: state.data,
+});
+
+const mapActionsToProps = {
+  getAllUsers,
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(ManageUsers);
