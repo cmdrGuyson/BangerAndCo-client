@@ -1,9 +1,10 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Card } from "react-bootstrap";
 import Sidebar from "../../components/sidebar/sidebar";
 import "./dashboard.scss";
 
 import ManageUsers from "../../components/manageUsers/manageUsers";
+import ViewUser from "../../components/manageUsers/viewUser";
 
 //Redux
 
@@ -17,6 +18,9 @@ const Dashboard = (props) => {
           </Col>
           <Col xs={7} id="page-content-wrapper">
             <ManageUsers />
+          </Col>
+          <Col xs={3} id="page-content-wrapper">
+            <ViewUser />
           </Col>
         </Row>
       </Container>

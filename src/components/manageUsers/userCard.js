@@ -1,15 +1,20 @@
 import React from "react";
 import { Badge, Card } from "react-bootstrap";
 import dayjs from "dayjs";
+import PropTypes from "prop-types";
 
 import "./userCard.scss";
 
-export default function userCard(props) {
+//REDUX
+import { connect } from "react-redux";
+import { getUser } from "../../redux/actions/dataActions";
+
+function userCard(props) {
   const {
     firstName,
     lastName,
     email,
-    //_id,
+    _id,
     //NIC,
     //DLN,
     //contactNumber,
@@ -19,8 +24,12 @@ export default function userCard(props) {
     createdAt,
   } = props.user;
 
+  const handleSetUser = (id) => {
+    props.getUser(id);
+  };
+
   return (
-    <Card className="user-card">
+    <Card className="user-card" onClick={() => handleSetUser(_id)}>
       <Card.Body>
         <Card.Title className="user-card-title">{`${firstName} ${lastName}`}</Card.Title>
         <Badge
@@ -54,3 +63,13 @@ export default function userCard(props) {
     </Card>
   );
 }
+
+userCard.propTypes = {
+  getUser: PropTypes.func.isRequired,
+};
+
+const mapActionsToProps = {
+  getUser,
+};
+
+export default connect(null, mapActionsToProps)(userCard);

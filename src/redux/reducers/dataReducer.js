@@ -3,7 +3,6 @@ import { SET_USERS, LOADING_DATA, SET_SELECTED_USER } from "../types";
 
 const initialState = {
   users: [],
-  user: {},
   loading: false,
 };
 
@@ -21,6 +20,11 @@ export default function (state = initialState, action) {
         ...state,
         users: action.payload,
         loading: false,
+      };
+    case SET_SELECTED_USER:
+      return {
+        ...state,
+        user: action.payload,
       };
     default:
       return state;

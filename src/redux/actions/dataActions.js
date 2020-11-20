@@ -22,3 +22,18 @@ export const getAllUsers = () => async (dispatch) => {
     console.log(error);
   }
 };
+
+/* Get single user info */
+export const getUser = (id) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .get(`/user/${id}`)
+    .then((result) => {
+      console.log(result.data);
+      dispatch({ type: SET_SELECTED_USER, payload: result.data });
+      dispatch({ type: STOP_LOADING_UI });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};

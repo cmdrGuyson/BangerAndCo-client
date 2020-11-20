@@ -11,6 +11,6 @@ export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const STOP_LOADING_UI = "STOP_LOADING_UI";
 
 /* DATA REDUCER TYPES */
-export const SET_SELECTED_USER = "SET_USER";
+export const SET_SELECTED_USER = "SET_SELECTED_USER";
 export const SET_USERS = "SET_USERS";
 export const LOADING_DATA = "LOADING_DATA";
