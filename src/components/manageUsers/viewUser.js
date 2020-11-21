@@ -19,6 +19,11 @@ import "./viewUser.scss";
 
 //REDUX
 import { connect } from "react-redux";
+import {
+  setVerified,
+  setBlacklisted,
+  setPremium,
+} from "../../redux/actions/dataActions";
 
 function ViewUser(props) {
   const {
@@ -34,11 +39,30 @@ function ViewUser(props) {
 
   useEffect(() => {
     if (user) {
+      console.log("hello");
       setIsVerified(user.isVerified);
       setIsPremium(user.isPremiumCustomer);
       setIsBlacklisted(user.isBlacklisted);
     }
   }, [user]);
+
+  const handleSetVerified = () => {
+    props.setVerified(user._id);
+    const _verified = isVerified;
+    setIsVerified(!_verified);
+  };
+
+  const handleSetPremium = () => {
+    props.setPremium(user._id);
+    const _premium = isPremium;
+    setIsPremium(!_premium);
+  };
+
+  const handleSetBlacklisted = () => {
+    props.setBlacklisted(user._id);
+    const _blacklisted = isBlacklisted;
+    setIsBlacklisted(!_blacklisted);
+  };
 
   return (
     <Fragment>
@@ -64,17 +88,29 @@ function ViewUser(props) {
                     {user.email}
                   </Card.Text>
                   {isVerified && (
-                    <Badge pill variant="primary">
+                    <Badge
+                      pill
+                      variant="primary"
+                      className="view-user-pill-badge"
+                    >
                       Verified
                     </Badge>
                   )}
                   {isPremium && (
-                    <Badge pill variant="success">
+                    <Badge
+                      pill
+                      variant="success"
+                      className="view-user-pill-badge"
+                    >
                       Premium
                     </Badge>
                   )}
                   {isBlacklisted && (
-                    <Badge pill variant="danger">
+                    <Badge
+                      pill
+                      variant="danger"
+                      className="view-user-pill-badge"
+                    >
                       Blacklisted
                     </Badge>
                   )}
@@ -124,11 +160,24 @@ function ViewUser(props) {
               </ButtonGroup>
 
               <ButtonGroup vertical className="view-user-image-options">
-                <Button variant="outline-info" disabled={true}>
-                  Set Verified
+                <Button
+                  variant={isVerified ? "outline-secondary" : "outline-info"}
+                  onClick={handleSetVerified}
+                >
+                  {isVerified ? "Remove Verified" : "Set Verified"}
                 </Button>
-                <Button variant="outline-success">Set Premium</Button>
-                <Button variant="outline-danger">Set Blacklisted</Button>
+                <Button
+                  variant={isPremium ? "outline-warning" : "outline-success"}
+                  onClick={handleSetPremium}
+                >
+                  {isPremium ? "Remove Premium" : "Set Premium"}
+                </Button>
+                <Button
+                  variant={isBlacklisted ? "danger" : "outline-danger"}
+                  onClick={handleSetBlacklisted}
+                >
+                  {isBlacklisted ? "Remove Blacklisted" : "Set Blacklisted"}
+                </Button>
               </ButtonGroup>
             </Card.Body>
 
@@ -175,6 +224,9 @@ function ViewUser(props) {
 ViewUser.propTypes = {
   user: PropTypes.object,
   UI: PropTypes.object.isRequired,
+  setVerified: PropTypes.func.isRequired,
+  setBlacklisted: PropTypes.func.isRequired,
+  setPremium: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -183,7 +235,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-  //
+  setVerified,
+  setBlacklisted,
+  setPremium,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(ViewUser);
