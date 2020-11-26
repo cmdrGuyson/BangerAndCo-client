@@ -115,8 +115,8 @@ function ManageUsers(props) {
                   </InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl
-                  placeholder="Search by name"
-                  aria-label="Search by name"
+                  placeholder="Search for a user"
+                  aria-label="Search for a user"
                   aria-describedby="basic-addon2"
                   onChange={(e) => search(e.target.value)}
                 />

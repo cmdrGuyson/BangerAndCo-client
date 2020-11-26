@@ -5,11 +5,13 @@ import {
   CLEAR_ERRORS,
   LOADING_UI,
   STOP_LOADING_UI,
+  SET_DASHBOARD,
 } from "../types";
 
 const initialState = {
   loading: false,
   errors: null,
+  dashboard: 0, //0 - users, 1 - vehicles
 };
 
 export default function (state = initialState, action) {
@@ -35,6 +37,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: false,
+      };
+    case SET_DASHBOARD:
+      return {
+        ...state,
+        dashboard: action.payload,
       };
     default:
       return state;

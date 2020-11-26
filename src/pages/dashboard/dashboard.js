@@ -1,14 +1,23 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import Sidebar from "../../components/sidebar/sidebar";
+import PropTypes from "prop-types";
+
 import "./dashboard.scss";
 
 import ManageUsers from "../../components/manageUsers/manageUsers";
+import ManageVehicles from "../../components/manageVehicles/manageVehicles";
 import ViewUser from "../../components/manageUsers/viewUser";
+import ViewVehicle from "../../components/manageVehicles/viewVehicle";
+import Sidebar from "../../components/sidebar/sidebar";
 
 //Redux
+import { connect } from "react-redux";
 
 const Dashboard = (props) => {
+  const {
+    UI: { dashboard },
+  } = props;
+
   return (
     <>
       <Container fluid>
@@ -17,10 +26,10 @@ const Dashboard = (props) => {
             <Sidebar />
           </Col>
           <Col xs={7} id="page-content-wrapper">
-            <ManageUsers />
+            {dashboard === 0 ? <ManageUsers /> : <ManageVehicles />}
           </Col>
           <Col xs={3} id="page-content-wrapper">
-            <ViewUser />
+            {dashboard === 0 ? <ViewUser /> : <ViewVehicle />}
           </Col>
         </Row>
       </Container>
@@ -28,4 +37,12 @@ const Dashboard = (props) => {
   );
 };
 
-export default Dashboard;
+Dashboard.propTypes = {
+  UI: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  UI: state.UI,
+});
+
+export default connect(mapStateToProps)(Dashboard);

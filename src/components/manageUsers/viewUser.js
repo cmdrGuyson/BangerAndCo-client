@@ -39,7 +39,6 @@ function ViewUser(props) {
 
   useEffect(() => {
     if (user) {
-      console.log("hello");
       setIsVerified(user.isVerified);
       setIsPremium(user.isPremiumCustomer);
       setIsBlacklisted(user.isBlacklisted);

@@ -9,6 +9,7 @@ export const SET_ERRORS = "SET_ERRORS";
 export const LOADING_UI = "LOADING_UI";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const STOP_LOADING_UI = "STOP_LOADING_UI";
+export const SET_DASHBOARD = "SET_DASHBOARD";
 
 /* DATA REDUCER TYPES */
 export const SET_SELECTED_USER = "SET_SELECTED_USER";
