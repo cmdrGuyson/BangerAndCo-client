@@ -6,6 +6,8 @@ import {
   SET_SELECTED_USER,
   LOADING_UI,
   STOP_LOADING_UI,
+  SET_VEHICLE,
+  SET_VEHICLES,
 } from "../types";
 
 /* Get all users */
@@ -65,6 +67,34 @@ export const setPremium = (id) => async (dispatch) => {
     console.log(result);
     dispatch(getAllUsers());
   } catch (error) {
+    console.log(error);
+  }
+};
+
+/* Get all vehicles */
+export const getAllVehicles = () => async (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  try {
+    let results = await axios.get("/vehicles");
+    dispatch({
+      type: SET_VEHICLES,
+      payload: results.data.vehicles,
+    });
+  } catch (error) {
+    dispatch({ type: SET_VEHICLES, payload: [] });
+    console.log(error);
+  }
+};
+
+/* Get single vehicle info */
+export const getVehicle = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: LOADING_UI });
+    let result = await axios.get(`/vehicle/${id}`);
+    dispatch({ type: SET_VEHICLE, payload: result.data });
+    dispatch({ type: STOP_LOADING_UI });
+  } catch (error) {
+    dispatch({ type: SET_VEHICLE, payload: {} });
     console.log(error);
   }
 };

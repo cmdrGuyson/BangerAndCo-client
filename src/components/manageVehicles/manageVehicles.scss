@@ -1,0 +1,22 @@
+.vehicle-card {
+  font-family: "Poppins", sans-serif !important;
+  height: 21rem;
+  position: relative;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.vehicle-card-button {
+  width: 100%;
+}
+
+.fa-plus-square-add {
+  margin-right: 10px;
+}
+
+.vehicle-card-badge {
+  position: absolute;
+  left: 75%;
+  top: 5%;
+}

@@ -15,3 +15,5 @@ export const SET_DASHBOARD = "SET_DASHBOARD";
 export const SET_SELECTED_USER = "SET_SELECTED_USER";
 export const SET_USERS = "SET_USERS";
 export const LOADING_DATA = "LOADING_DATA";
+export const SET_VEHICLE = "SET_VEHICLE";
+export const SET_VEHICLES = "SET_VEHICLES";
