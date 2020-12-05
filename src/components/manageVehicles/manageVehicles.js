@@ -13,6 +13,7 @@ import {
 import PropTypes from "prop-types";
 
 import VehicleCard from "./vehicleCard";
+import AddVehicleModal from "./addVehicleModal";
 
 //REDUX
 import { connect } from "react-redux";
@@ -23,6 +24,7 @@ import "./manageVehicles.scss";
 function ManageVehicles(props) {
   const [_vehicles, setVehicles] = useState([]);
   const [vehiclePool, setVehiclePool] = useState([]);
+  const [addModalShow, setAddModalShow] = useState(false);
 
   const {
     data: { vehicles, loading },
@@ -132,7 +134,11 @@ function ManageVehicles(props) {
             src="http://localhost:5000/vehicles/default_car.jpg"
           />
           <Card.Body>
-            <Button variant="info" className="vehicle-card-button">
+            <Button
+              variant="info"
+              className="vehicle-card-button"
+              onClick={() => setAddModalShow(true)}
+            >
               <span>
                 <i className="fas fa-plus-square fa-plus-square-add"></i>
                 Add Vehicle
@@ -143,6 +149,10 @@ function ManageVehicles(props) {
 
         {loading ? <p>Loading...</p> : vehiclesMarkup}
       </CardColumns>
+      <AddVehicleModal
+        show={addModalShow}
+        onHide={() => setAddModalShow(false)}
+      />
     </div>
   );
 }

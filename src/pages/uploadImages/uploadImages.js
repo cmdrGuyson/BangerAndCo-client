@@ -111,6 +111,7 @@ function UploadImages(props) {
                   id="alternateImageInput"
                   onChange={handleAlternateImageChange}
                   hidden="hidden"
+                  accept=".png, .jpeg, .jpg"
                 />
                 <p className="error-text" hidden={!errors.alternateImage}>
                   {errors.alternateImage}

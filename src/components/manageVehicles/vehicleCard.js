@@ -24,7 +24,7 @@ function userCard(props) {
 
   return (
     <Card className="vehicle-card" onClick={() => handleSetVehicle(_id)}>
-      <Card.Img variant="top" src={imageURL} />
+      <Card.Img variant="top" src={imageURL} className="vehicle-card-image" />
       <Badge
         pill
         className="vehicle-card-badge"

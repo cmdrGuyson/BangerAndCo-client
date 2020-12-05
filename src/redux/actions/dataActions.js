@@ -8,6 +8,8 @@ import {
   STOP_LOADING_UI,
   SET_VEHICLE,
   SET_VEHICLES,
+  SET_ERRORS,
+  CLEAR_ERRORS,
 } from "../types";
 
 /* Get all users */
@@ -96,5 +98,41 @@ export const getVehicle = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: SET_VEHICLE, payload: {} });
     console.log(error);
+  }
+};
+
+/* Add a vehicle */
+export const addVehicle = (vehicle, history) => async (dispatch) => {
+  dispatch({ type: LOADING_UI });
+
+  try {
+    let results = await axios.post("/vehicle", vehicle);
+    await dispatch(getAllVehicles());
+    dispatch({ type: CLEAR_ERRORS });
+
+    //Prevent modal from closing due to errors
+    if (results.data._id) return true;
+  } catch (error) {
+    dispatch({
+      type: SET_ERRORS,
+      payload: error.response.data,
+    });
+  }
+};
+
+/* Upload Vehicle Image */
+export const uploadVehicleImage = (formData, id) => async (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  try {
+    await axios.post(`/vehicle-image/${id}`, formData);
+    dispatch(getAllVehicles());
+    dispatch(getVehicle(id));
+    dispatch({ type: CLEAR_ERRORS });
+    dispatch({ type: STOP_LOADING_UI });
+  } catch (error) {
+    dispatch({
+      type: SET_ERRORS,
+      payload: { error: { vehicleImage: error.response.data.error.message } },
+    });
   }
 };
