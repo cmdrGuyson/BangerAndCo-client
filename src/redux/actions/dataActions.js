@@ -88,6 +88,23 @@ export const getAllVehicles = () => async (dispatch) => {
   }
 };
 
+/* Get all available vehicles */
+export const getAllAvailableVehicles = () => async (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  try {
+    let _results = await axios.get("/vehicles");
+    console.log(_results);
+    let results = _results.data.vehicles.filter((e) => e.isAvailable === true);
+    dispatch({
+      type: SET_VEHICLES,
+      payload: results,
+    });
+  } catch (error) {
+    dispatch({ type: SET_VEHICLES, payload: [] });
+    console.log(error);
+  }
+};
+
 /* Get single vehicle info */
 export const getVehicle = (id) => async (dispatch) => {
   try {
@@ -110,8 +127,46 @@ export const addVehicle = (vehicle, history) => async (dispatch) => {
     await dispatch(getAllVehicles());
     dispatch({ type: CLEAR_ERRORS });
 
-    //Prevent modal from closing due to errors
+    //Prevent modal from closing after errors are displayed
     if (results.data._id) return true;
+  } catch (error) {
+    dispatch({
+      type: SET_ERRORS,
+      payload: error.response.data,
+    });
+  }
+};
+
+/* Remove vehicle */
+export const removeVehicle = (id) => async (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  try {
+    let results = await axios.delete(`/vehicle/${id}`);
+    dispatch(getAllVehicles());
+    dispatch({ type: SET_VEHICLE, payload: null });
+    dispatch({ type: CLEAR_ERRORS });
+
+    //Prevent modal from closing after errors are displayed
+    if (results.data.message === "Successfully deleted") return true;
+  } catch (error) {
+    dispatch({
+      type: SET_ERRORS,
+      payload: error.response.data,
+    });
+  }
+};
+
+/* Change vehicle rent */
+export const changeRent = (id, rent) => async (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  try {
+    let results = await axios.post(`/rent/${id}`, { rent });
+    dispatch(getVehicle(id));
+    dispatch({ type: CLEAR_ERRORS });
+    dispatch({ type: STOP_LOADING_UI });
+
+    //Prevent modal from closing after errors are displayed
+    if (results.data.message === "Rent changed successfully") return true;
   } catch (error) {
     dispatch({
       type: SET_ERRORS,

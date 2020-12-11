@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import {
   Card,
   Alert,
@@ -12,6 +12,9 @@ import dayjs from "dayjs";
 
 import "./viewVehicle.scss";
 
+import RemoveVehicleModal from "./removeVehicleModal";
+import ChangeRentModal from "./changeRentModal";
+
 //REDUX
 import { connect } from "react-redux";
 import { uploadVehicleImage } from "../../redux/actions/dataActions";
@@ -23,6 +26,8 @@ function ViewVehicle(props) {
   } = props;
 
   const [errors, setErrors] = useState({});
+  const [removeModalShow, setRemoveModalShow] = useState(false);
+  const [rentModalShow, setRentModalShow] = useState(false);
 
   //Clicks on hidden input field
   const handleImageUpload = () => {
@@ -45,82 +50,107 @@ function ViewVehicle(props) {
   return loading ? (
     <p>Loading...</p>
   ) : vehicle ? (
-    <Card className="view-user-card">
-      <Badge
-        pill
-        className="vehicle-card-badge"
-        variant={vehicle.isAvailable ? "success" : "danger"}
-      >
-        {vehicle.isAvailable ? "Available" : "Unavailable"}
-      </Badge>
-      <Card.Body>
-        <img className="vehicle-image" src={vehicle.imageURL} alt="car"></img>
+    <Fragment>
+      <Card className="view-user-card">
+        <Badge
+          pill
+          className="vehicle-card-badge"
+          variant={vehicle.isAvailable ? "success" : "danger"}
+        >
+          {vehicle.isAvailable ? "Available" : "Unavailable"}
+        </Badge>
+        <Card.Body>
+          <img className="vehicle-image" src={vehicle.imageURL} alt="car"></img>
 
-        <hr />
+          <hr />
 
-        <ListGroup>
-          <ListGroup.Item variant="light">
-            <Badge variant="secondary">Vehicle number</Badge>
-            <span> {vehicle.vehicleNumber}</span>
-          </ListGroup.Item>
-          <ListGroup.Item variant="light">
-            <Badge variant="secondary">Brand</Badge>
-            <span> {vehicle.brand}</span>
-          </ListGroup.Item>
-          <ListGroup.Item variant="light">
-            <Badge variant="secondary">Model</Badge>
-            <span> {vehicle.model}</span>
-          </ListGroup.Item>
-          <ListGroup.Item variant="light">
-            <Badge variant="secondary">Type</Badge>
-            <span> {vehicle.type}</span>
-          </ListGroup.Item>
-          <ListGroup.Item variant="light">
-            <Badge variant="secondary">Fuel type</Badge>
-            <span> {vehicle.fuelType}</span>
-          </ListGroup.Item>
-          <ListGroup.Item variant="light">
-            <Badge variant="secondary">Transmission</Badge>
-            <span> {vehicle.transmission}</span>
-          </ListGroup.Item>
-          <ListGroup.Item variant="light">
-            <Badge variant="danger">Rent</Badge>
-            <span> {`$${vehicle.rent}`}</span>
-          </ListGroup.Item>
-        </ListGroup>
+          <ListGroup>
+            <ListGroup.Item variant="light">
+              <Badge variant="secondary">Vehicle number</Badge>
+              <span> {vehicle.vehicleNumber}</span>
+            </ListGroup.Item>
+            <ListGroup.Item variant="light">
+              <Badge variant="secondary">Brand</Badge>
+              <span> {vehicle.brand}</span>
+            </ListGroup.Item>
+            <ListGroup.Item variant="light">
+              <Badge variant="secondary">Model</Badge>
+              <span> {vehicle.model}</span>
+            </ListGroup.Item>
+            <ListGroup.Item variant="light">
+              <Badge variant="secondary">Type</Badge>
+              <span> {vehicle.type}</span>
+            </ListGroup.Item>
+            <ListGroup.Item variant="light">
+              <Badge variant="secondary">Fuel type</Badge>
+              <span> {vehicle.fuelType}</span>
+            </ListGroup.Item>
+            <ListGroup.Item variant="light">
+              <Badge variant="secondary">Transmission</Badge>
+              <span> {vehicle.transmission}</span>
+            </ListGroup.Item>
+            <ListGroup.Item variant="light">
+              <Badge variant="danger">Rent</Badge>
+              <span> {`$${vehicle.rent}`}</span>
+            </ListGroup.Item>
+          </ListGroup>
 
-        <ButtonGroup vertical className="view-vehicle-image-options">
-          <Button variant="outline-info">Change Rent</Button>
-          <Button variant="outline-info" onClick={handleImageUpload}>
-            Change Image
-          </Button>
-          <Button variant="outline-danger">Remove Vehicle</Button>
-        </ButtonGroup>
-      </Card.Body>
+          <ButtonGroup vertical className="view-vehicle-image-options">
+            <Button
+              variant="outline-info"
+              disabled={!vehicle.isAvailable}
+              onClick={() => setRentModalShow(true)}
+            >
+              Change Rent
+            </Button>
+            <Button variant="outline-info" onClick={handleImageUpload}>
+              Change Image
+            </Button>
+            <Button
+              variant="outline-danger"
+              disabled={!vehicle.isAvailable}
+              onClick={() => setRemoveModalShow(true)}
+            >
+              Remove Vehicle
+            </Button>
+          </ButtonGroup>
+        </Card.Body>
 
-      <input
-        type="file"
-        id="vehicleImageInput"
-        onChange={handleImageChange}
-        hidden="hidden"
-        accept=".png, .jpeg, .jpg"
+        <input
+          type="file"
+          id="vehicleImageInput"
+          onChange={handleImageChange}
+          hidden="hidden"
+          accept=".png, .jpeg, .jpg"
+        />
+
+        <p
+          className="error-text"
+          hidden={!errors.vehicleImage}
+          style={{ textAlign: "center" }}
+        >
+          {errors.vehicleImage}
+        </p>
+
+        <Card.Footer>
+          {" "}
+          <small className="text-muted">
+            {`Added on ${dayjs(vehicle.createdAt).toString()}`}
+          </small>
+        </Card.Footer>
+      </Card>
+
+      <RemoveVehicleModal
+        id={vehicle._id}
+        show={removeModalShow}
+        onHide={() => setRemoveModalShow(false)}
       />
-
-      <p
-        className="error-text"
-        hidden={!errors.vehicleImage}
-        style={{ textAlign: "center" }}
-      >
-        {errors.vehicleImage}
-      </p>
-
-      <Card.Footer>
-        {" "}
-        <small className="text-muted">
-          {`Added on ${dayjs(vehicle.createdAt).toString()}`}
-        </small>
-      </Card.Footer>
-    </Card>
+      <ChangeRentModal
+        id={vehicle._id}
+        show={rentModalShow}
+        onHide={() => setRentModalShow(false)}
+      />
+    </Fragment>
   ) : (
     <Alert variant="warning">No vehicle selected</Alert>
   );

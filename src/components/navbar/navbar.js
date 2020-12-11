@@ -29,7 +29,7 @@ function navbar(props) {
           <Nav className="mr-auto"></Nav>
           <Nav>
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link>View Fleet</Nav.Link>
+            <Nav.Link href="/vehicles">View Fleet</Nav.Link>
             <Nav.Link>Rent Car</Nav.Link>
             {role === "admin" && (
               <Button

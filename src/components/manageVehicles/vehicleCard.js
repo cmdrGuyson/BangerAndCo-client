@@ -8,7 +8,7 @@ import "./vehicleCard.scss";
 import { connect } from "react-redux";
 import { getVehicle } from "../../redux/actions/dataActions";
 
-function userCard(props) {
+function VehicleCard(props) {
   const {
     _id,
     vehicleNumber,
@@ -49,7 +49,7 @@ function userCard(props) {
   );
 }
 
-userCard.propTypes = {
+VehicleCard.propTypes = {
   getVehicle: PropTypes.func.isRequired,
 };
 
@@ -57,4 +57,4 @@ const mapActionsToProps = {
   getVehicle,
 };
 
-export default connect(null, mapActionsToProps)(userCard);
+export default connect(null, mapActionsToProps)(VehicleCard);
