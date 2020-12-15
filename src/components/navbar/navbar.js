@@ -31,7 +31,7 @@ function navbar(props) {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/vehicles">View Fleet</Nav.Link>
             <Nav.Link>Rent Car</Nav.Link>
-            {role === "admin" && (
+            {role === "admin" ? (
               <Button
                 variant="outline-light"
                 size="sm"
@@ -40,6 +40,17 @@ function navbar(props) {
               >
                 Admin Dashboard
               </Button>
+            ) : (
+              role === "user" && (
+                <Button
+                  variant="outline-light"
+                  size="sm"
+                  className="button"
+                  href="/uploadImages"
+                >
+                  Settings
+                </Button>
+              )
             )}
             {!authenticated ? (
               <Fragment>

@@ -1,16 +1,8 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Card, Badge } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 import "./vehicle.scss";
-
-//Images
-import petrolIcon from "../../images/gas-station.svg";
-import dieselIcon from "../../images/oil.svg";
-import hybridIcon from "../../images/eco-car.svg";
-import electricIcon from "../../images/electric-plug.svg";
-import autoIcon from "../../images/automatic-transmission.svg";
-import manualIcon from "../../images/manual-transmission.svg";
 
 //REDUX
 import { connect } from "react-redux";
@@ -42,41 +34,15 @@ function Vehicle(props) {
       </div>
       <Card.Img className="vehicle-image" src={imageURL}></Card.Img>
       <span>
-        <p>
-          {`${brand} ${model}`}
-          <img
-            src={
-              fuelType === "petrol"
-                ? petrolIcon
-                : fuelType === "diesel"
-                ? dieselIcon
-                : fuelType === "hybrid"
-                ? hybridIcon
-                : electricIcon
-            }
-            alt="fuel"
-            className="vehicle-icon"
-            title={
-              fuelType === "petrol"
-                ? "Petrol"
-                : fuelType === "diesel"
-                ? "Diesel"
-                : fuelType === "hybrid"
-                ? "Hybrid"
-                : "Electric"
-            }
-          />
-          <img
-            src={transmission === "auto" ? autoIcon : manualIcon}
-            alt="transmission"
-            className="vehicle-icon"
-            title={
-              transmission === "auto"
-                ? "Automatic Transmission"
-                : "Manual Transmission"
-            }
-          />
-        </p>
+        <div className="vehicle-info-badges">
+          <Badge pill variant="dark">
+            {`${fuelType[0].toUpperCase()}${fuelType.slice(1)}`}
+          </Badge>{" "}
+          <Badge pill variant="dark">
+            {`${transmission[0].toUpperCase()}${transmission.slice(1)}`}
+          </Badge>
+        </div>
+        <p className="vehicle-title">{`${brand} ${model}`}</p>
       </span>
     </Card>
   );
