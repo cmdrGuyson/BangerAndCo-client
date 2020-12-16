@@ -30,7 +30,7 @@ function navbar(props) {
           <Nav>
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/vehicles">View Fleet</Nav.Link>
-            <Nav.Link>Rent Car</Nav.Link>
+            {authenticated && <Nav.Link>My Rents</Nav.Link>}
             {role === "admin" ? (
               <Button
                 variant="outline-light"

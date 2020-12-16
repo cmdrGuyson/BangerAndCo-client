@@ -1,37 +1,71 @@
 //MODULE IMPORT
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Container, Alert } from "react-bootstrap";
+import PropTypes from "prop-types";
 //CSS IMPORT
 import "./home.scss";
 //COMPONENT IMPORT
 import RentNow from "../../components/rent_now/rent_now";
 import Navbar from "../../components/navbar/navbar";
 
-export default function home() {
-	return (
-		<div className="top_image">
-			<Navbar />
-			<Container style={{ textAlign: "center" }}>
-				<h2 className="title">Rent Now!</h2>
-				<p className="description">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-					eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
-				</p>
+//REDUX
+import { connect } from "react-redux";
 
-				<RentNow />
-				<h2 className="about-title">About us</h2>
-				<p className="about-description">
-					Fringilla ut morbi tincidunt augue interdum velit euismod in
-					pellentesque. At risus viverra adipiscing at in tellus integer. Id
-					aliquet lectus proin nibh nisl condimentum id venenatis. Laoreet id
-					donec ultrices tincidunt. Bibendum at varius vel pharetra. Viverra
-					adipiscing at in tellus integer. Amet volutpat consequat mauris nunc
-					congue nisi vitae suscipit. Pretium viverra suspendisse potenti nullam
-					ac tortor. Et egestas quis ipsum suspendisse. Cursus in hac habitasse
-					platea dictumst quisque. Mi proin sed libero enim sed faucibus turpis
-					in eu.
-				</p>
-			</Container>
-		</div>
-	);
+function home(props) {
+  return (
+    <div className="top_image">
+      <Navbar />
+
+      <Container style={{ textAlign: "center" }}>
+        {/* Alert message to be shown if user has not yet uploaded ID images */}
+        <Alert
+          variant="danger"
+          className="not-verified-message"
+          hidden={
+            !props.authenticated ||
+            props.role === "admin" ||
+            (props.licenseImageURL && props.alternateIDImageURL)
+          }
+        >
+          You are <b>not verified</b>.{" "}
+          <a href="/uploadImages">
+            Click here to <b>upload verification images</b>
+          </a>
+        </Alert>
+        <h2 className="title">Rent Now!</h2>
+        <p className="description">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
+        </p>
+
+        <RentNow />
+        <h2 className="about-title">About us</h2>
+        <p className="about-description">
+          Fringilla ut morbi tincidunt augue interdum velit euismod in
+          pellentesque. At risus viverra adipiscing at in tellus integer. Id
+          aliquet lectus proin nibh nisl condimentum id venenatis. Laoreet id
+          donec ultrices tincidunt. Bibendum at varius vel pharetra. Viverra
+          adipiscing at in tellus integer. Amet volutpat consequat mauris nunc
+          congue nisi vitae suscipit. Pretium viverra suspendisse potenti nullam
+          ac tortor. Et egestas quis ipsum suspendisse. Cursus in hac habitasse
+          platea dictumst quisque. Mi proin sed libero enim sed faucibus turpis
+          in eu.
+        </p>
+      </Container>
+    </div>
+  );
 }
+
+const mapStateToProps = (state) => ({
+  licenseImageURL: state.user.licenseImageURL,
+  alternateIDImageURL: state.user.alternateIDImageURL,
+  authenticated: state.user.authenticated,
+  role: state.user.role,
+  user: state.user,
+});
+
+home.propTypes = {
+  user: PropTypes.object,
+};
+
+export default connect(mapStateToProps)(home);

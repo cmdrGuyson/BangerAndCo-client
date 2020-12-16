@@ -19,7 +19,7 @@ import { logoutUser, getUserData } from "./redux/actions/userActions";
 
 //Utils
 import AuthRoute from "./utils/authRoute";
-import AuthRouteHasUploaded from "./utils/authRouteHasUploaded";
+import AuthRouteUser from "./utils/authRouteUser";
 import AuthRouteAdmin from "./utils/authRouteAdmin";
 
 axios.defaults.baseURL = "http://localhost:5000";
@@ -48,7 +48,7 @@ function App() {
             <AuthRoute exact path="/login" component={Login} />
             <AuthRoute exact path="/register" component={Register} />
             <Route exact path="/vehicles" component={Vehicles} />
-            <AuthRouteHasUploaded
+            <AuthRouteUser
               exact
               path="/uploadimages"
               component={UploadImages}

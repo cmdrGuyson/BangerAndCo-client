@@ -64,6 +64,22 @@ const Sidebar = (props) => {
           </Button>
         </Nav.Item>
         <Nav.Item className="sidebar-item">
+          <Button
+            variant="dark"
+            className={`sidebar-button ${
+              dashboard === 2 && "sidebar-button-active"
+            }`}
+            size="lg"
+            id="equipment-dashboard-button"
+            onClick={handleSetDashboard}
+          >
+            <span>
+              <i className="fas fa-tachometer-alt icon"></i>
+              Equipment
+            </span>
+          </Button>
+        </Nav.Item>
+        <Nav.Item className="sidebar-item">
           <Button variant="dark" className="sidebar-button" size="lg" href="/">
             <span>
               <i className="fas fa-home icon"></i>

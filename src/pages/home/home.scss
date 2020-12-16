@@ -10,6 +10,14 @@
   -moz-box-shadow: -1px 166px 252px 63px rgba(0, 0, 0, 0.92) inset;
 }
 
+.not-verified-message {
+  font-family: "Poppins", sans-serif;
+  a {
+    font-size: 1rem;
+    color: #721c24;
+  }
+}
+
 .title {
   font-family: "Poppins", sans-serif;
   color: white;

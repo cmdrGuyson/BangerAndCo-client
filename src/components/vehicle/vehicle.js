@@ -6,7 +6,7 @@ import "./vehicle.scss";
 
 //REDUX
 import { connect } from "react-redux";
-import { getVehicle } from "../../redux/actions/dataActions";
+//import { getVehicle } from "../../redux/actions/dataActions";
 
 function Vehicle(props) {
   const {
@@ -19,16 +19,8 @@ function Vehicle(props) {
     transmission,
   } = props.vehicle;
 
-  const handleSetVehicle = (id) => {
-    props.getVehicle(id);
-  };
-
   return (
-    <Card
-      className="vehicle-box"
-      key={_id}
-      onClick={() => handleSetVehicle(_id)}
-    >
+    <Card className="vehicle-box" key={_id}>
       <div className="vehicle-ribbon">
         <span>{`$${rent}`}</span>
       </div>
@@ -49,11 +41,11 @@ function Vehicle(props) {
 }
 
 Vehicle.propTypes = {
-  getVehicle: PropTypes.func.isRequired,
+  //getVehicle: PropTypes.func.isRequired,
 };
 
 const mapActionsToProps = {
-  getVehicle,
+  //getVehicle,
 };
 
 export default connect(null, mapActionsToProps)(Vehicle);

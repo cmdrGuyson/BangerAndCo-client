@@ -9,6 +9,7 @@ import {
   Col,
   Dropdown,
   Button,
+  Alert,
 } from "react-bootstrap";
 import PropTypes from "prop-types";
 //CSS IMPORT
@@ -17,10 +18,14 @@ import "./vehicles.scss";
 import RentNow from "../../components/rent_now/rent_now";
 import Navbar from "../../components/navbar/navbar";
 import Vehicle from "../../components/vehicle/vehicle";
+import RentVehicleModal from "../../components/rentVehicle/rentVehicleModal";
 
 //REDUX
 import { connect } from "react-redux";
-import { getAllAvailableVehicles } from "../../redux/actions/dataActions";
+import {
+  getAllAvailableVehicles,
+  getVehicle,
+} from "../../redux/actions/dataActions";
 
 function Vehicles(props) {
   const [_vehicles, setVehicles] = useState([]);
@@ -28,6 +33,7 @@ function Vehicles(props) {
   const [transmission, setTransmission] = useState("Transmission");
   const [fuel, setFuel] = useState("Fuel Type");
   const [type, setType] = useState("Vehicle Type");
+  const [vehicleModalShow, setVehicleModalShow] = React.useState(false);
 
   const {
     data: { vehicles, loading },
@@ -45,8 +51,17 @@ function Vehicles(props) {
     }
   }, [vehicles]);
 
+  const handleVehicleClick = (id) => {
+    if (props.isVerified) {
+      setVehicleModalShow(true);
+      getVehicle(id);
+    }
+  };
+
   let vehiclesMarkup = _vehicles.map((vehicle) => (
-    <Vehicle key={vehicle._id} vehicle={vehicle}></Vehicle>
+    <div key={vehicle._id} onClick={() => handleVehicleClick(vehicle._id)}>
+      <Vehicle vehicle={vehicle}></Vehicle>
+    </div>
   ));
 
   const search = (input) => {
@@ -104,6 +119,21 @@ function Vehicles(props) {
     <div className="top_image-vehicles">
       <Navbar />
       <Container style={{ textAlign: "center" }}>
+        {/* Alert message to be shown if user has not yet uploaded ID images */}
+        <Alert
+          variant="danger"
+          className="not-verified-message"
+          hidden={
+            !props.authenticated ||
+            props.role === "admin" ||
+            (props.licenseImageURL && props.alternateIDImageURL)
+          }
+        >
+          You are <b>not verified</b>.{" "}
+          <a href="/uploadImages">
+            Click here to <b>upload verification images</b>
+          </a>
+        </Alert>
         <h2 className="title">All Vehicles</h2>
         <p className="description">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -250,20 +280,32 @@ function Vehicles(props) {
           {!loading && vehiclesMarkup}
         </CardColumns>
       </Container>
+      <RentVehicleModal
+        show={vehicleModalShow}
+        onHide={() => setVehicleModalShow(false)}
+      />
     </div>
   );
 }
 
 Vehicles.propTypes = {
   getAllAvailableVehicles: PropTypes.func.isRequired,
+  user: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
   data: state.data,
+  isVerified: state.user.isVerified,
+  licenseImageURL: state.user.licenseImageURL,
+  alternateIDImageURL: state.user.alternateIDImageURL,
+  authenticated: state.user.authenticated,
+  role: state.user.role,
+  getVehicle: PropTypes.func.isRequired,
 });
 
 const mapActionsToProps = {
   getAllAvailableVehicles,
+  getVehicle,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Vehicles);

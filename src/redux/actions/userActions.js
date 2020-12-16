@@ -18,8 +18,7 @@ export const loginUser = (user_data, history) => async (dispatch) => {
     setAuthorizationHeader(results.data.token);
     let user = await dispatch(getUserData());
     dispatch({ type: CLEAR_ERRORS });
-    if (user.role === "user") history.push("/uploadimages");
-    else history.push("/");
+    history.push("/");
   } catch (error) {
     dispatch({
       type: SET_ERRORS,
@@ -36,7 +35,7 @@ export const registerUser = (user_data, history) => async (dispatch) => {
     setAuthorizationHeader(results.data.token);
     await dispatch(getUserData());
     dispatch({ type: CLEAR_ERRORS });
-    history.push("/uploadimages");
+    history.push("/");
   } catch (error) {
     dispatch({
       type: SET_ERRORS,

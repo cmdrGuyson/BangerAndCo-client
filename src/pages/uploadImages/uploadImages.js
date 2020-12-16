@@ -75,14 +75,20 @@ function UploadImages(props) {
               <Card.Body>
                 <h2 className="logo">Banger&Co</h2>
                 <p className="upload-label">Upload an image of your license</p>
+                <p
+                  hidden={!isAlternateImageUploaded}
+                  className="image-uploaded-text"
+                >
+                  [Successfully uploaded]
+                </p>
                 <Button
                   variant="primary"
                   type="submit"
-                  disabled={loading || isLicenseImageUploaded}
+                  disabled={loading}
                   onClick={handleLicenseImageUpload}
                 >
                   {isLicenseImageUploaded
-                    ? "Uploaded Successfully"
+                    ? "Upload Again"
                     : "Upload license image"}
                 </Button>
                 <input
@@ -96,14 +102,20 @@ function UploadImages(props) {
                   {errors.licenseImage}
                 </p>
                 <p className="upload-label">Upload an alternate ID image</p>
+                <p
+                  hidden={!isAlternateImageUploaded}
+                  className="image-uploaded-text"
+                >
+                  [Successfully uploaded]
+                </p>
                 <Button
                   variant="primary"
                   type="submit"
                   onClick={handleAlternateImageUpload}
-                  disabled={loading || isAlternateImageUploaded}
+                  disabled={loading}
                 >
                   {isAlternateImageUploaded
-                    ? "Uploaded Successfully"
+                    ? "Upload again"
                     : "Upload alternate image"}
                 </Button>
                 <input
@@ -113,6 +125,7 @@ function UploadImages(props) {
                   hidden="hidden"
                   accept=".png, .jpeg, .jpg"
                 />
+
                 <p className="error-text" hidden={!errors.alternateImage}>
                   {errors.alternateImage}
                 </p>
