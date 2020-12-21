@@ -52,8 +52,8 @@ function Vehicles(props) {
   }, [vehicles]);
 
   const handleVehicleClick = (id) => {
+    setVehicleModalShow(true);
     if (props.isVerified) {
-      setVehicleModalShow(true);
       getVehicle(id);
     }
   };
@@ -129,6 +129,7 @@ function Vehicles(props) {
             (props.licenseImageURL && props.alternateIDImageURL)
           }
         >
+          {`Hello ${props.firstName}! `}
           You are <b>not verified</b>.{" "}
           <a href="/uploadImages">
             Click here to <b>upload verification images</b>
@@ -281,6 +282,7 @@ function Vehicles(props) {
         </CardColumns>
       </Container>
       <RentVehicleModal
+        isVerified={props.isVerified}
         show={vehicleModalShow}
         onHide={() => setVehicleModalShow(false)}
       />
@@ -295,6 +297,7 @@ Vehicles.propTypes = {
 
 const mapStateToProps = (state) => ({
   data: state.data,
+  firstName: state.user.firstName,
   isVerified: state.user.isVerified,
   licenseImageURL: state.user.licenseImageURL,
   alternateIDImageURL: state.user.alternateIDImageURL,

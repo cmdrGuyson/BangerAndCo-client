@@ -17,6 +17,7 @@ function AddVehicleModal(props) {
   const [transmission, setTransmission] = useState("auto");
   const [errors, setErrors] = useState({});
 
+  //When errors are updated the component is re-rendered to display errors
   useEffect(() => {
     props.UI.errors ? setErrors(props.UI.errors.error) : setErrors({});
   }, [props.UI.errors]);
@@ -36,13 +37,17 @@ function AddVehicleModal(props) {
       fuelType,
       transmission,
     };
+    //Add vehicle to backend
     let result = await props.addVehicle(data);
+
+    //If no errors are found clear the modal and hide it
     if (result === true) {
       props.onHide();
       clearFields();
     }
   };
 
+  //Method to clear all form fields and set them to default
   const clearFields = () => {
     setBrand("");
     setModel("");

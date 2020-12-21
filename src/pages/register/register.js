@@ -22,6 +22,7 @@ function Register(props) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
 
+  //Function to generate form control inputs for each field
   const useInput = ({
     type,
     value,
@@ -52,11 +53,14 @@ function Register(props) {
     return input;
   };
 
+  //Update state with errors
   useEffect(() => {
     props.UI.errors && setErrors(props.UI.errors.error);
   }, [props.UI.errors]);
 
+  //When submit button is clicked
   const handleSubmit = (event) => {
+    //Prevent page from reloading
     event.preventDefault();
     const data = {
       email,
@@ -69,6 +73,7 @@ function Register(props) {
       DLN,
       dateOfBirth,
     };
+    //Use user input to register user
     props.registerUser(data, props.history);
   };
 

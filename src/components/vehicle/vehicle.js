@@ -1,14 +1,10 @@
 import React from "react";
 import { Card, Badge } from "react-bootstrap";
-import PropTypes from "prop-types";
 
+//CSS
 import "./vehicle.scss";
 
-//REDUX
-import { connect } from "react-redux";
-//import { getVehicle } from "../../redux/actions/dataActions";
-
-function Vehicle(props) {
+export default function Vehicle(props) {
   const {
     _id,
     imageURL,
@@ -39,13 +35,3 @@ function Vehicle(props) {
     </Card>
   );
 }
-
-Vehicle.propTypes = {
-  //getVehicle: PropTypes.func.isRequired,
-};
-
-const mapActionsToProps = {
-  //getVehicle,
-};
-
-export default connect(null, mapActionsToProps)(Vehicle);

@@ -10,6 +10,7 @@ import {
   SET_VEHICLES,
   SET_ERRORS,
   CLEAR_ERRORS,
+  SET_EQUIPMENT,
 } from "../types";
 
 /* Get all users */
@@ -93,7 +94,7 @@ export const getAllAvailableVehicles = () => async (dispatch) => {
   dispatch({ type: LOADING_DATA });
   try {
     let _results = await axios.get("/vehicles");
-    console.log(_results);
+    //console.log(_results);
     let results = _results.data.vehicles.filter((e) => e.isAvailable === true);
     dispatch({
       type: SET_VEHICLES,
@@ -189,5 +190,39 @@ export const uploadVehicleImage = (formData, id) => async (dispatch) => {
       type: SET_ERRORS,
       payload: { error: { vehicleImage: error.response.data.error.message } },
     });
+  }
+};
+
+/* Get all equipment */
+export const getEquipment = () => async (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  try {
+    let results = await axios.get("/equipment");
+    console.log(results);
+    dispatch({
+      type: SET_EQUIPMENT,
+      payload: results.data.equipment,
+    });
+  } catch (error) {
+    dispatch({ type: SET_EQUIPMENT, payload: [] });
+    console.log(error);
+  }
+};
+
+/* Increment equipment */
+export const incrementEquipment = (id) => async (dispatch) => {
+  try {
+    await axios.get(`/equipment/increment/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/* Decrement equipment */
+export const decrementEquipment = (id) => async (dispatch) => {
+  try {
+    await axios.get(`/equipment/decrement/${id}`);
+  } catch (error) {
+    console.log(error);
   }
 };

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 
+//Components
 import Navbar from "../../components/navbar/navbar";
 
+//CSS
 import "./login.scss";
 
 //REDUX
@@ -15,18 +17,17 @@ function Login(props) {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
 
+  //Destructure props
   const {
     UI: { loading },
   } = props;
 
+  //Update state with errors
   useEffect(() => {
     props.UI.errors && setErrors(props.UI.errors.error);
   }, [props.UI.errors]);
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
-
+  //Method to handle form submission
   const handleLogin = (event) => {
     event.preventDefault();
     const data = { email, password };

@@ -19,15 +19,18 @@ import { logoutUser, getUserData } from "./redux/actions/userActions";
 
 //Utils
 import AuthRoute from "./utils/authRoute";
-import AuthRouteUser from "./utils/authRouteUser";
+//import AuthRouteUser from "./utils/authRouteUser";
 import AuthRouteAdmin from "./utils/authRouteAdmin";
+import AuthRouteAll from "./utils/authRouteAll";
 
 axios.defaults.baseURL = "http://localhost:5000";
 
 const token = localStorage.BangerToken;
 
+//Check validity of JWT token
 if (token) {
   const decodedToken = jwtDecode(token);
+  //Check if token is expired
   if (decodedToken.exp * 1000 < Date.now()) {
     store.dispatch(logoutUser());
     window.location.href = "/login";
@@ -48,11 +51,7 @@ function App() {
             <AuthRoute exact path="/login" component={Login} />
             <AuthRoute exact path="/register" component={Register} />
             <Route exact path="/vehicles" component={Vehicles} />
-            <AuthRouteUser
-              exact
-              path="/uploadimages"
-              component={UploadImages}
-            />
+            <AuthRouteAll exact path="/uploadimages" component={UploadImages} />
             <AuthRouteAdmin exact path="/dashboard" component={Dashboard} />
           </Switch>
         </Router>

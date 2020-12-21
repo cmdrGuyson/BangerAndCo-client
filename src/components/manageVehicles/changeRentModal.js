@@ -10,13 +10,16 @@ function ChangeRentModal(props) {
   const [errors, setErrors] = useState({});
   const [rent, setRent] = useState(0);
 
+  //When errors are updated the component is re-rendered to display errors
   useEffect(() => {
     props.UI.errors ? setErrors(props.UI.errors.error) : setErrors({});
   }, [props.UI.errors]);
 
   const handleRentChange = async (event) => {
+    //Stop page from reloading due to form submit
     event.preventDefault();
     let result = await props.changeRent(props.id, parseFloat(rent));
+    //If no errors occur hide the modal
     if (result === true) props.onHide();
   };
 

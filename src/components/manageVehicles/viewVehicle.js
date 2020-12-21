@@ -20,6 +20,7 @@ import { connect } from "react-redux";
 import { uploadVehicleImage } from "../../redux/actions/dataActions";
 
 function ViewVehicle(props) {
+  //Destructure props
   const {
     UI: { loading },
     vehicle,
@@ -43,6 +44,7 @@ function ViewVehicle(props) {
     props.uploadVehicleImage(formData, vehicle._id);
   };
 
+  //Update state with errors
   useEffect(() => {
     props.UI.errors ? setErrors(props.UI.errors.error) : setErrors({});
   }, [props.UI.errors]);

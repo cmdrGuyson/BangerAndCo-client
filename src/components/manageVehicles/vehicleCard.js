@@ -2,6 +2,7 @@ import React from "react";
 import { Badge, Card } from "react-bootstrap";
 import PropTypes from "prop-types";
 
+//CSS
 import "./vehicleCard.scss";
 
 //REDUX

@@ -27,6 +27,7 @@ function home(props) {
             (props.licenseImageURL && props.alternateIDImageURL)
           }
         >
+          {`Hello ${props.firstName}! `}
           You are <b>not verified</b>.{" "}
           <a href="/uploadImages">
             Click here to <b>upload verification images</b>
@@ -57,6 +58,7 @@ function home(props) {
 }
 
 const mapStateToProps = (state) => ({
+  firstName: state.user.firstName,
   licenseImageURL: state.user.licenseImageURL,
   alternateIDImageURL: state.user.alternateIDImageURL,
   authenticated: state.user.authenticated,

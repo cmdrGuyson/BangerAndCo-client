@@ -30,8 +30,10 @@ function navbar(props) {
           <Nav>
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/vehicles">View Fleet</Nav.Link>
+            {/* If user is authenticated show "My Rents" link */}
             {authenticated && <Nav.Link>My Rents</Nav.Link>}
-            {role === "admin" ? (
+            {/* If user is an admin show link to "Admin dashboard" */}
+            {role === "admin" && (
               <Button
                 variant="outline-light"
                 size="sm"
@@ -40,18 +42,19 @@ function navbar(props) {
               >
                 Admin Dashboard
               </Button>
-            ) : (
-              role === "user" && (
-                <Button
-                  variant="outline-light"
-                  size="sm"
-                  className="button"
-                  href="/uploadImages"
-                >
-                  Settings
-                </Button>
-              )
             )}
+            {/* If user is authenticated show "Settings" link */}
+            {authenticated && (
+              <Button
+                variant="outline-light"
+                size="sm"
+                className="button"
+                href="/uploadImages"
+              >
+                Settings
+              </Button>
+            )}
+            {/* If user is not authenticated show "Login and Register" links else show "Logout" button*/}
             {!authenticated ? (
               <Fragment>
                 <Button

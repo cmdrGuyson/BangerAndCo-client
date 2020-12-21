@@ -11,6 +11,7 @@ import {
 } from "react-bootstrap";
 import PropTypes from "prop-types";
 
+//COMPONENTS
 import VehicleCard from "./vehicleCard";
 import AddVehicleModal from "./addVehicleModal";
 
@@ -18,6 +19,7 @@ import AddVehicleModal from "./addVehicleModal";
 import { connect } from "react-redux";
 import { getAllVehicles } from "../../redux/actions/dataActions";
 
+//CSS
 import "./manageVehicles.scss";
 
 function ManageVehicles(props) {
@@ -33,11 +35,13 @@ function ManageVehicles(props) {
     data: { vehicles, loading },
   } = props;
 
+  //When component is initiated, get all vehicles from the backend
   useEffect(() => {
     props.getAllVehicles();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  //When vehicles list passed from props are updated, update state variables
   useEffect(() => {
     if (vehicles) {
       setVehicles(vehicles);
@@ -45,35 +49,51 @@ function ManageVehicles(props) {
     }
   }, [vehicles]);
 
+  //Function to create listof vehicle cards from vehicle list in state
   let vehiclesMarkup = _vehicles.map((vehicle) => (
     <VehicleCard key={vehicle._id} vehicle={vehicle} />
   ));
 
+  //Function to change displayed vehicles when category is set
   const setValue = (type, name, value) => {
     handleReset();
 
+    //Depending on category update state
     if (type === "transmission") setTransmission(name);
     else if (type === "fuelType") setFuel(name);
     else if (type === "type") setType(name);
     else if (type === "isAvailable") setAvailability(name);
 
+    //Filter vehicle list
     const vehiclesCopy = vehicles.map((vehicle) => vehicle);
     const result = vehiclesCopy.filter((item) => {
       return item[type] === value;
     });
 
+    //Set as state to re-render vehicle cards
     setVehicles(result);
     setVehiclePool(result);
   };
 
+  //Function to search through vehicles
   const search = (input) => {
+    //Get a copy of state
     const vehicleCopy = vehiclePool.map((vehicle) => vehicle);
+
+    //Array of search string after splitting by spaces
     const inputs = input.toLowerCase().split(" ");
+
+    //Vehicle model, brand and number will be searched through
     const searchKeys = ["model", "brand", "vehicleNumber"];
     let vehiclesArray = [];
+
+    //If search criteria is null reset vehicles to display all vehicles
     if (inputs.length === 1 && inputs[0] === "") {
       vehiclesArray = vehicleCopy;
-    } else {
+    }
+    //If search criteria is entered
+    else {
+      //Filter through vehicle list to find matches
       inputs.forEach((word) => {
         vehicleCopy.filter((item) => {
           // eslint-disable-next-line array-callback-return
@@ -86,6 +106,8 @@ function ManageVehicles(props) {
         });
       });
     }
+
+    //Remove duplicates and set state to be dispayed
     const result = [...new Set(vehiclesArray)];
     setVehicles(result);
   };

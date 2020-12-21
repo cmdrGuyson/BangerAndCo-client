@@ -10,14 +10,17 @@ import { clearErrors } from "../../redux/actions/uiActions";
 function RemoveVehicleModal(props) {
   const [errors, setErrors] = useState({});
 
+  //Update state with errors
   useEffect(() => {
     props.UI.errors ? setErrors(props.UI.errors.error) : setErrors({});
   }, [props.UI.errors]);
 
+  //Destructure props
   const {
     UI: { loading },
   } = props;
 
+  //Handle remove button click
   const handleRemove = async (event) => {
     event.preventDefault();
     let result = await props.removeVehicle(props.id);

@@ -5,11 +5,13 @@ import {
   SET_SELECTED_USER,
   SET_VEHICLES,
   SET_VEHICLE,
+  SET_EQUIPMENT,
 } from "../types";
 
 const initialState = {
   users: [],
   vehicles: [],
+  equipment: [],
   loading: false,
 };
 
@@ -43,6 +45,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         vehicle: action.payload,
+      };
+    case SET_EQUIPMENT:
+      return {
+        ...state,
+        equipment: action.payload,
+        loading: false,
       };
     default:
       return state;

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 
+//Components
 import Navbar from "../../components/navbar/navbar";
 
+//CSS
 import "./uploadImages.scss";
 
 //REDUX
@@ -20,15 +22,18 @@ function UploadImages(props) {
     false
   );
 
+  //Destructure props
   const {
     UI: { loading },
     user: { licenseImageURL, alternateIDImageURL },
   } = props;
 
+  //Update error state when errors passed from props is changed
   useEffect(() => {
     props.UI.errors ? setErrors(props.UI.errors.error) : setErrors({});
   }, [props.UI.errors]);
 
+  //Update state when imageURLs are updated
   useEffect(() => {
     licenseImageURL && setIsLicenseImageUploaded(true);
   }, [licenseImageURL]);

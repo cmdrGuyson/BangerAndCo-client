@@ -2,6 +2,7 @@ import React from "react";
 import { Nav, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 
+//CSS
 import "./sidebar.scss";
 
 //Redux
@@ -9,17 +10,21 @@ import { connect } from "react-redux";
 import { setDashboard } from "../../redux/actions/uiActions";
 
 const Sidebar = (props) => {
+  //Destructure props
   const {
     UI: { dashboard },
   } = props;
 
+  //Manage clicks on dashboard buttons
   const handleSetDashboard = (event) => {
     const id = event.target.id;
-
+    console.log("Click", id);
     if (id === "user-dashboard-button") {
       props.setDashboard(0);
-    } else {
+    } else if (id === "vehicle-dashboard-button") {
       props.setDashboard(1);
+    } else if (id === "equipment-dashboard-button") {
+      props.setDashboard(2);
     }
   };
 
@@ -76,6 +81,22 @@ const Sidebar = (props) => {
             <span>
               <i className="fas fa-tachometer-alt icon"></i>
               Equipment
+            </span>
+          </Button>
+        </Nav.Item>
+        <Nav.Item className="sidebar-item">
+          <Button
+            variant="dark"
+            className={`sidebar-button ${
+              dashboard === 3 && "sidebar-button-active"
+            }`}
+            size="lg"
+            id="rent-dashboard-button"
+            onClick={handleSetDashboard}
+          >
+            <span>
+              <i className="fas fa-file-invoice-dollar icon"></i>
+              Rents
             </span>
           </Button>
         </Nav.Item>

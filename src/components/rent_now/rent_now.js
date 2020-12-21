@@ -1,8 +1,7 @@
 import React from "react";
 import { Row, Col, Button } from "react-bootstrap";
-//import TimePicker from "react-time-picker";
-//import DatePicker from "react-date-picker";
 
+//CSS
 import "./rent_now.scss";
 
 export default function rent_now() {

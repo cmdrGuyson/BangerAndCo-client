@@ -6,6 +6,7 @@ import "./dashboard.scss";
 
 import ManageUsers from "../../components/manageUsers/manageUsers";
 import ManageVehicles from "../../components/manageVehicles/manageVehicles";
+import ManageEquipment from "../../components/manageEquipment/manageEquipment";
 import ViewUser from "../../components/manageUsers/viewUser";
 import ViewVehicle from "../../components/manageVehicles/viewVehicle";
 import Sidebar from "../../components/sidebar/sidebar";
@@ -25,12 +26,20 @@ const Dashboard = (props) => {
           <Col xs={2} id="sidebar-wrapper">
             <Sidebar />
           </Col>
-          <Col xs={7} id="page-content-wrapper">
-            {dashboard === 0 ? <ManageUsers /> : <ManageVehicles />}
-          </Col>
-          <Col xs={3} id="page-content-wrapper">
-            {dashboard === 0 ? <ViewUser /> : <ViewVehicle />}
-          </Col>
+          {dashboard === 2 ? (
+            <Col xs={10} id="page-content-wrapper">
+              <ManageEquipment />
+            </Col>
+          ) : (
+            <>
+              <Col xs={7} id="page-content-wrapper">
+                {dashboard === 0 ? <ManageUsers /> : <ManageVehicles />}
+              </Col>
+              <Col xs={3} id="page-content-wrapper">
+                {dashboard === 0 ? <ViewUser /> : <ViewVehicle />}
+              </Col>
+            </>
+          )}
         </Row>
       </Container>
     </>
