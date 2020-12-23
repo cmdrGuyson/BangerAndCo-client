@@ -56,9 +56,11 @@ function userCard(props) {
         <Card.Text>{email}</Card.Text>
       </Card.Body>
       <Card.Footer>
-        <small className="text-muted">{`Registered on ${dayjs(
-          createdAt
-        ).toString()}`}</small>
+        <small className="text-muted">{`Registered on ${dayjs(createdAt)
+          .format("MM/DD/YYYY h:mm:ss A [GMT]ZZ", {
+            timeZone: "Asia/Colombo",
+          })
+          .toString()}`}</small>
       </Card.Footer>
     </Card>
   );

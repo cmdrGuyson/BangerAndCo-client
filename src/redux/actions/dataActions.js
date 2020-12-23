@@ -11,6 +11,7 @@ import {
   SET_ERRORS,
   CLEAR_ERRORS,
   SET_EQUIPMENT,
+  SET_TIMES,
 } from "../types";
 
 /* Get all users */
@@ -89,16 +90,16 @@ export const getAllVehicles = () => async (dispatch) => {
   }
 };
 
-/* Get all available vehicles */
-export const getAllAvailableVehicles = () => async (dispatch) => {
+/* Set pickup and dropoff date and time when finding vehicles*/
+export const setTimes = (times, history) => async (dispatch) => {
+  dispatch({ type: SET_TIMES, payload: times });
   dispatch({ type: LOADING_DATA });
+  history.push("/rent-vehicles");
   try {
-    let _results = await axios.get("/vehicles");
-    //console.log(_results);
-    let results = _results.data.vehicles.filter((e) => e.isAvailable === true);
+    let results = await axios.post("/available-vehicles", times);
     dispatch({
       type: SET_VEHICLES,
-      payload: results,
+      payload: results.data.vehicles,
     });
   } catch (error) {
     dispatch({ type: SET_VEHICLES, payload: [] });
@@ -120,7 +121,7 @@ export const getVehicle = (id) => async (dispatch) => {
 };
 
 /* Add a vehicle */
-export const addVehicle = (vehicle, history) => async (dispatch) => {
+export const addVehicle = (vehicle) => async (dispatch) => {
   dispatch({ type: LOADING_UI });
 
   try {
@@ -161,7 +162,7 @@ export const removeVehicle = (id) => async (dispatch) => {
 export const changeRent = (id, rent) => async (dispatch) => {
   dispatch({ type: LOADING_UI });
   try {
-    let results = await axios.post(`/rent/${id}`, { rent });
+    let results = await axios.post(`/change-rent/${id}`, { rent });
     dispatch(getVehicle(id));
     dispatch({ type: CLEAR_ERRORS });
     dispatch({ type: STOP_LOADING_UI });

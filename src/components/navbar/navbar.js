@@ -29,7 +29,7 @@ function navbar(props) {
           <Nav className="mr-auto"></Nav>
           <Nav>
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/vehicles">View Fleet</Nav.Link>
+            <Nav.Link href="/rent-vehicles">Rent Vehicle</Nav.Link>
             {/* If user is authenticated show "My Rents" link */}
             {authenticated && <Nav.Link>My Rents</Nav.Link>}
             {/* If user is an admin show link to "Admin dashboard" */}

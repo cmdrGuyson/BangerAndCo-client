@@ -6,12 +6,14 @@ import {
   SET_VEHICLES,
   SET_VEHICLE,
   SET_EQUIPMENT,
+  SET_TIMES,
 } from "../types";
 
 const initialState = {
   users: [],
   vehicles: [],
   equipment: [],
+  times: null,
   loading: false,
 };
 
@@ -51,6 +53,11 @@ export default function (state = initialState, action) {
         ...state,
         equipment: action.payload,
         loading: false,
+      };
+    case SET_TIMES:
+      return {
+        ...state,
+        times: action.payload,
       };
     default:
       return state;

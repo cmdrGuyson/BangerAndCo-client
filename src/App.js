@@ -50,7 +50,7 @@ function App() {
             <Route exact path="/" component={Home} />
             <AuthRoute exact path="/login" component={Login} />
             <AuthRoute exact path="/register" component={Register} />
-            <Route exact path="/vehicles" component={Vehicles} />
+            <Route exact path="/rent-vehicles" component={Vehicles} />
             <AuthRouteAll exact path="/uploadimages" component={UploadImages} />
             <AuthRouteAdmin exact path="/dashboard" component={Dashboard} />
           </Switch>

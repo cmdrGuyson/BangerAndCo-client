@@ -39,7 +39,7 @@ function home(props) {
           eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
         </p>
 
-        <RentNow />
+        <RentNow history={props.history} />
         <h2 className="about-title">About us</h2>
         <p className="about-description">
           Fringilla ut morbi tincidunt augue interdum velit euismod in

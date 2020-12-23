@@ -22,10 +22,7 @@ import RentVehicleModal from "../../components/rentVehicle/rentVehicleModal";
 
 //REDUX
 import { connect } from "react-redux";
-import {
-  getAllAvailableVehicles,
-  getVehicle,
-} from "../../redux/actions/dataActions";
+import { getVehicle } from "../../redux/actions/dataActions";
 
 function Vehicles(props) {
   const [_vehicles, setVehicles] = useState([]);
@@ -40,11 +37,6 @@ function Vehicles(props) {
   } = props;
 
   useEffect(() => {
-    props.getAllAvailableVehicles();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     if (vehicles) {
       setVehicles(vehicles);
       setVehiclePool(vehicles);
@@ -54,7 +46,7 @@ function Vehicles(props) {
   const handleVehicleClick = (id) => {
     setVehicleModalShow(true);
     if (props.isVerified) {
-      getVehicle(id);
+      props.getVehicle(id);
     }
   };
 
@@ -135,13 +127,13 @@ function Vehicles(props) {
             Click here to <b>upload verification images</b>
           </a>
         </Alert>
-        <h2 className="title">All Vehicles</h2>
+        <h2 className="title">Rent Vehicles</h2>
         <p className="description">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
         </p>
 
-        <RentNow />
+        <RentNow history={props.history} />
 
         <Row className="vehicle-search">
           <Col md={5} style={{ paddingRight: 0 }}>
@@ -277,6 +269,11 @@ function Vehicles(props) {
             </Button>
           </Col>
         </Row>
+        {!loading && _vehicles.length === 0 && (
+          <Alert variant="warning" className="no-vehicle-alert">
+            No vehicles found! Try changing the pickup and dropoff dates.
+          </Alert>
+        )}
         <CardColumns style={{ marginTop: 20 }}>
           {!loading && vehiclesMarkup}
         </CardColumns>
@@ -291,7 +288,7 @@ function Vehicles(props) {
 }
 
 Vehicles.propTypes = {
-  getAllAvailableVehicles: PropTypes.func.isRequired,
+  getVehicle: PropTypes.func.isRequired,
   user: PropTypes.object,
 };
 
@@ -304,10 +301,10 @@ const mapStateToProps = (state) => ({
   authenticated: state.user.authenticated,
   role: state.user.role,
   getVehicle: PropTypes.func.isRequired,
+  vehicles: state.data.vehicles,
 });
 
 const mapActionsToProps = {
-  getAllAvailableVehicles,
   getVehicle,
 };
 

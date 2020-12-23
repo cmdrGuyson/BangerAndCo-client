@@ -183,7 +183,11 @@ function ViewUser(props) {
             <Card.Footer>
               {" "}
               <small className="text-muted">
-                {`Registered on ${dayjs(user.createdAt).toString()}`}
+                {`Registered on ${dayjs(user.createdAt)
+                  .format("MM/DD/YYYY h:mm:ss A [GMT]ZZ", {
+                    timeZone: "Asia/Colombo",
+                  })
+                  .toString()}`}
               </small>
             </Card.Footer>
           </Card>

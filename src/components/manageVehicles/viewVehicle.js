@@ -137,7 +137,11 @@ function ViewVehicle(props) {
         <Card.Footer>
           {" "}
           <small className="text-muted">
-            {`Added on ${dayjs(vehicle.createdAt).toString()}`}
+            {`Added on ${dayjs(vehicle.createdAt)
+              .format("MM/DD/YYYY h:mm:ss A [GMT]ZZ", {
+                timeZone: "Asia/Colombo",
+              })
+              .toString()}`}
           </small>
         </Card.Footer>
       </Card>

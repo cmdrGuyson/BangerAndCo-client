@@ -60,6 +60,7 @@ function ManageUsers(props) {
               if (word.length > 0 && item[key].toLowerCase().includes(word))
                 if (item) usersArray.push(item);
             }
+            return null;
           });
         });
       });
