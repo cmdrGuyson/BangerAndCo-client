@@ -41,8 +41,7 @@ function ManageEquipment(props) {
               <tr>
                 <th>Equipment Name</th>
                 <th>Rent/day</th>
-                <th>Available Amount</th>
-                <th>Rented Amount</th>
+                <th>Total Amount Rented</th>
                 <th>Total Amount</th>
               </tr>
             </thead>

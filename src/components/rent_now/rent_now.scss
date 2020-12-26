@@ -3,7 +3,7 @@
   -webkit-box-shadow: -1px 166px 249px 63px rgba(0, 0, 0, 0.6) inset;
   -moz-box-shadow: -1px 166px 249px 63px rgba(0, 0, 0, 0.6) inset;
   padding: 30px;
-  padding-bottom: 50px;
+  padding-bottom: 20px;
   font-family: "Poppins", sans-serif;
   font-size: 0.9rem;
   font-weight: 500;
@@ -27,4 +27,10 @@
 .search-button {
   font-family: "Poppins", sans-serif;
   width: 60%;
+}
+
+.error-text-rent {
+  font-family: "Poppins", sans-serif;
+  color: #dc3545;
+  margin-top: 10px;
 }

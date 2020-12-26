@@ -14,6 +14,12 @@ function Rent_now(props) {
   const [pickupTime, setPickupTime] = useState("");
   const [dropoffDate, setDropoffDate] = useState("");
   const [dropoffTime, setDropoffTime] = useState("");
+  const [errors, setErrors] = useState({});
+
+  //When errors are updated the component is re-rendered to display errors
+  useEffect(() => {
+    props.UI.errors ? setErrors(props.UI.errors.error) : setErrors({});
+  }, [props.UI.errors]);
 
   useEffect(() => {
     if (props.times) {
@@ -23,6 +29,16 @@ function Rent_now(props) {
       setDropoffTime(props.times.dropoffTime);
     }
   }, []);
+
+  //Create the minimum pickup and delivery date
+  const minDate = () => {
+    const now = new Date();
+
+    const day = parseInt(("0" + now.getDate()).slice(-2)) + 1;
+    const month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    return now.getFullYear() + "-" + month + "-" + day;
+  };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -41,6 +57,7 @@ function Rent_now(props) {
               type="date"
               required
               value={pickupDate}
+              min={minDate()}
               onChange={(e) => setPickupDate(e.target.value)}
             ></input>
             <input
@@ -59,6 +76,7 @@ function Rent_now(props) {
               className="rent-now-input"
               type="date"
               required
+              min={minDate()}
               value={dropoffDate}
               onChange={(e) => setDropoffDate(e.target.value)}
             ></input>
@@ -78,6 +96,9 @@ function Rent_now(props) {
             </Button>
           </Col>
         </Row>
+        <p className="error-text-rent" hidden={!errors}>
+          {errors.message}
+        </p>
       </form>
     </div>
   );
@@ -86,10 +107,12 @@ function Rent_now(props) {
 Rent_now.propTypes = {
   setTimes: PropTypes.func.isRequired,
   times: PropTypes.object,
+  UI: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   times: state.data.times,
+  UI: state.UI,
 });
 
 const mapActionsToProps = {

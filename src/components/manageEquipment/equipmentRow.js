@@ -13,14 +13,12 @@ function EquipmentRow(props) {
   const [name, setName] = useState("");
   const [rent, setRent] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [availableAmount, setAvailableAmount] = useState(0);
   const [rentedAmount, setRentedAmount] = useState(0);
 
   useEffect(() => {
     setName(props.equipment.name);
     setRent(props.equipment.rent);
     setTotalAmount(props.equipment.totalAmount);
-    setAvailableAmount(props.equipment.availableAmount);
     setRentedAmount(props.equipment.rentedAmount);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -29,18 +27,14 @@ function EquipmentRow(props) {
   const handleIncrement = () => {
     props.incrementEquipment(props.equipment._id);
     let total_value = totalAmount;
-    let availableAmount_value = availableAmount;
     setTotalAmount(total_value + 1);
-    setAvailableAmount(availableAmount_value + 1);
   };
 
   const handleDecrement = () => {
-    if (availableAmount !== 0) {
+    if (totalAmount !== 0) {
       props.decrementEquipment(props.equipment._id);
       let total_value = totalAmount;
-      let availableAmount_value = availableAmount;
       setTotalAmount(total_value - 1);
-      setAvailableAmount(availableAmount_value - 1);
     }
   };
 
@@ -48,7 +42,6 @@ function EquipmentRow(props) {
     <tr>
       <td>{name}</td>
       <td>{`$${rent}`}</td>
-      <td>{availableAmount}</td>
       <td>{rentedAmount}</td>
       <td>
         <InputGroup>
@@ -56,7 +49,7 @@ function EquipmentRow(props) {
             <Button
               variant="danger"
               className="increment-button"
-              disabled={availableAmount === 0}
+              disabled={totalAmount === 0}
               onClick={handleDecrement}
             >
               -

@@ -50,50 +50,56 @@ function Vehicles(props) {
     }
   };
 
-  let vehiclesMarkup = _vehicles.map((vehicle) => (
-    <div key={vehicle._id} onClick={() => handleVehicleClick(vehicle._id)}>
-      <Vehicle vehicle={vehicle}></Vehicle>
-    </div>
-  ));
+  let vehiclesMarkup =
+    _vehicles.length > 0 &&
+    _vehicles.map((vehicle) => (
+      <div key={vehicle._id} onClick={() => handleVehicleClick(vehicle._id)}>
+        <Vehicle vehicle={vehicle}></Vehicle>
+      </div>
+    ));
 
   const search = (input) => {
-    const vehicleCopy = vehiclePool.map((vehicle) => vehicle);
-    const inputs = input.toLowerCase().split(" ");
-    const searchKeys = ["model", "brand", "vehicleNumber"];
-    let vehiclesArray = [];
-    if (inputs.length === 1 && inputs[0] === "") {
-      vehiclesArray = vehicleCopy;
-    } else {
-      inputs.forEach((word) => {
-        vehicleCopy.filter((item) => {
-          // eslint-disable-next-line array-callback-return
-          return Object.keys(item).some((key) => {
-            if (searchKeys.includes(key)) {
-              if (word.length > 0 && item[key].toLowerCase().includes(word))
-                if (item) vehiclesArray.push(item);
-            }
+    if (vehicles.length > 0) {
+      const vehicleCopy = vehiclePool.map((vehicle) => vehicle);
+      const inputs = input.toLowerCase().split(" ");
+      const searchKeys = ["model", "brand", "vehicleNumber"];
+      let vehiclesArray = [];
+      if (inputs.length === 1 && inputs[0] === "") {
+        vehiclesArray = vehicleCopy;
+      } else {
+        inputs.forEach((word) => {
+          vehicleCopy.filter((item) => {
+            // eslint-disable-next-line array-callback-return
+            return Object.keys(item).some((key) => {
+              if (searchKeys.includes(key)) {
+                if (word.length > 0 && item[key].toLowerCase().includes(word))
+                  if (item) vehiclesArray.push(item);
+              }
+            });
           });
         });
-      });
+      }
+      const result = [...new Set(vehiclesArray)];
+      setVehicles(result);
     }
-    const result = [...new Set(vehiclesArray)];
-    setVehicles(result);
   };
 
   const setValue = (type, name, value) => {
-    handleReset();
+    if (vehicles.length > 0) {
+      handleReset();
 
-    if (type === "transmission") setTransmission(name);
-    else if (type === "fuelType") setFuel(name);
-    else if (type === "type") setType(name);
+      if (type === "transmission") setTransmission(name);
+      else if (type === "fuelType") setFuel(name);
+      else if (type === "type") setType(name);
 
-    const vehiclesCopy = vehicles.map((vehicle) => vehicle);
-    const result = vehiclesCopy.filter((item) => {
-      return item[type] === value;
-    });
+      const vehiclesCopy = vehicles.map((vehicle) => vehicle);
+      const result = vehiclesCopy.filter((item) => {
+        return item[type] === value;
+      });
 
-    setVehicles(result);
-    setVehiclePool(result);
+      setVehicles(result);
+      setVehiclePool(result);
+    }
   };
 
   const handleReset = () => {
@@ -269,16 +275,18 @@ function Vehicles(props) {
             </Button>
           </Col>
         </Row>
-        {!loading && _vehicles.length === 0 && (
-          <Alert variant="warning" className="no-vehicle-alert">
-            No vehicles found! Try changing the pickup and dropoff dates.
-          </Alert>
-        )}
+        {!loading &&
+          (_vehicles.length === 0 || Object.keys(_vehicles).length === 0) && (
+            <Alert variant="warning" className="no-vehicle-alert">
+              No vehicles found! Try changing the pickup and dropoff dates.
+            </Alert>
+          )}
         <CardColumns style={{ marginTop: 20 }}>
-          {!loading && vehiclesMarkup}
+          {!loading && _vehicles.length > 0 && vehiclesMarkup}
         </CardColumns>
       </Container>
       <RentVehicleModal
+        history={props.history}
         isVerified={props.isVerified}
         show={vehicleModalShow}
         onHide={() => setVehicleModalShow(false)}

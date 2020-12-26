@@ -10,6 +10,7 @@ import Register from "./pages/register/register";
 import UploadImages from "./pages/uploadImages/uploadImages";
 import Dashboard from "./pages/dashboard/dashboard";
 import Vehicles from "./pages/vehicles/vehicles";
+import Success from "./pages/success/success";
 
 /* REDUX */
 import { Provider } from "react-redux";
@@ -52,6 +53,7 @@ function App() {
             <AuthRoute exact path="/register" component={Register} />
             <Route exact path="/rent-vehicles" component={Vehicles} />
             <AuthRouteAll exact path="/uploadimages" component={UploadImages} />
+            <AuthRouteAll exact path="/success" component={Success} />
             <AuthRouteAdmin exact path="/dashboard" component={Dashboard} />
           </Switch>
         </Router>

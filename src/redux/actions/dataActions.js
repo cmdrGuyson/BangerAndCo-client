@@ -1,4 +1,5 @@
 import axios from "axios";
+import dayjs from "dayjs";
 
 import {
   SET_USERS,
@@ -12,6 +13,7 @@ import {
   CLEAR_ERRORS,
   SET_EQUIPMENT,
   SET_TIMES,
+  SET_ERRORS_RENT,
 } from "../types";
 
 /* Get all users */
@@ -92,18 +94,53 @@ export const getAllVehicles = () => async (dispatch) => {
 
 /* Set pickup and dropoff date and time when finding vehicles*/
 export const setTimes = (times, history) => async (dispatch) => {
-  dispatch({ type: SET_TIMES, payload: times });
-  dispatch({ type: LOADING_DATA });
-  history.push("/rent-vehicles");
-  try {
-    let results = await axios.post("/available-vehicles", times);
+  //Validate pickup and dropoff times
+  const pickup = dayjs(
+    `${times.pickupDate} ${times.pickupTime}`,
+    "YYY-MM-DD HH:mm"
+  );
+  const dropoff = dayjs(
+    `${times.dropoffDate} ${times.dropoffTime}`,
+    "YYY-MM-DD HH:mm"
+  );
+
+  const diff = dropoff.diff(pickup, "minutes");
+
+  console.log(pickup, dropoff, diff);
+
+  dispatch({
+    type: SET_VEHICLES,
+    payload: {},
+  });
+
+  if (diff < 300) {
     dispatch({
-      type: SET_VEHICLES,
-      payload: results.data.vehicles,
+      type: SET_ERRORS,
+      payload: { error: { message: "Minimum rent period is 5 hours" } },
     });
-  } catch (error) {
-    dispatch({ type: SET_VEHICLES, payload: [] });
-    console.log(error);
+  } else if (diff > 20160) {
+    dispatch({
+      type: SET_ERRORS,
+      payload: { error: { message: "Maximum rent period is 2 weeks" } },
+    });
+  } else {
+    times.diff = diff;
+    dispatch({ type: CLEAR_ERRORS });
+    dispatch({ type: SET_TIMES, payload: times });
+    dispatch({ type: LOADING_DATA });
+    history.push("/rent-vehicles");
+    try {
+      let results = await axios.get(
+        `/available-vehicles/${times.pickupDate}/${times.dropoffDate}`
+      );
+      dispatch({
+        type: SET_VEHICLES,
+        payload: results.data.vehicles,
+      });
+    } catch (error) {
+      dispatch({ type: SET_VEHICLES, payload: [] });
+      console.log(error);
+    }
   }
 };
 
@@ -199,7 +236,7 @@ export const getEquipment = () => async (dispatch) => {
   dispatch({ type: LOADING_DATA });
   try {
     let results = await axios.get("/equipment");
-    console.log(results);
+    //console.log(results);
     dispatch({
       type: SET_EQUIPMENT,
       payload: results.data.equipment,
@@ -225,5 +262,25 @@ export const decrementEquipment = (id) => async (dispatch) => {
     await axios.get(`/equipment/decrement/${id}`);
   } catch (error) {
     console.log(error);
+  }
+};
+
+/* Make rent */
+export const makeRent = (data, id, history) => async (dispatch) => {
+  dispatch({ type: LOADING_UI });
+
+  try {
+    let results = await axios.post(`/rent/${id}`, data);
+    dispatch({ type: CLEAR_ERRORS });
+    dispatch({ type: STOP_LOADING_UI });
+    history.push("/success");
+    //Prevent modal from closing after errors are displayed
+    if (results.data._id) return true;
+  } catch (error) {
+    console.log(error.response.data);
+    dispatch({
+      type: SET_ERRORS_RENT,
+      payload: error.response.data,
+    });
   }
 };
