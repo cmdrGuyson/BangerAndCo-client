@@ -7,7 +7,10 @@ import "./rentVehicleModal.scss";
 
 //REDUX
 import { connect } from "react-redux";
-import { getEquipment, makeRent } from "../../redux/actions/dataActions";
+import {
+  getAvailableEquipment,
+  makeRent,
+} from "../../redux/actions/dataActions";
 
 //Utils
 import { isOver25 } from "../../utils/util";
@@ -29,9 +32,8 @@ function RentVehicleModal(props) {
   } = props;
 
   useEffect(() => {
-    props.getEquipment();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    props.getAvailableEquipment(times.pickupDate, times.dropoffDate);
+  }, [times]);
 
   //Calculate initial total
   useEffect(() => {
@@ -180,6 +182,11 @@ function RentVehicleModal(props) {
                   <tr>
                     <td>Additional Equipment</td>
                     <td>
+                      {!loading && equipment.length === 0 && (
+                        <p style={{ color: "gray" }}>
+                          No available equipment to rent
+                        </p>
+                      )}
                       <ul className="ks-cboxtags">
                         {!loading && equipmentMarkup}
                       </ul>
@@ -258,13 +265,13 @@ RentVehicleModal.propTypes = {
   vehicle: PropTypes.object,
   times: PropTypes.object,
   user: PropTypes.object,
-  getEquipment: PropTypes.func.isRequired,
+  getAvailableEquipment: PropTypes.func.isRequired,
   makeRent: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired,
 };
 
 const mapActionsToProps = {
-  getEquipment,
+  getAvailableEquipment,
   makeRent,
 };
 

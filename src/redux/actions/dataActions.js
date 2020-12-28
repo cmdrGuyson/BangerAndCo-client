@@ -247,6 +247,21 @@ export const getEquipment = () => async (dispatch) => {
   }
 };
 
+/* Get all available equipment */
+export const getAvailableEquipment = (pickup, dropoff) => async (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  try {
+    let results = await axios.get(`/available-equipment/${pickup}/${dropoff}`);
+    dispatch({
+      type: SET_EQUIPMENT,
+      payload: results.data.availableEquipment,
+    });
+  } catch (error) {
+    dispatch({ type: SET_EQUIPMENT, payload: [] });
+    console.log(error);
+  }
+};
+
 /* Increment equipment */
 export const incrementEquipment = (id) => async (dispatch) => {
   try {
