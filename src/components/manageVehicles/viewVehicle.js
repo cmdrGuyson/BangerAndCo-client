@@ -138,7 +138,7 @@ function ViewVehicle(props) {
           {" "}
           <small className="text-muted">
             {`Added on ${dayjs(vehicle.createdAt)
-              .format("MM/DD/YYYY h:mm:ss A [GMT]ZZ", {
+              .format("DD/MM/YYYY h:mm:ss A [GMT]ZZ", {
                 timeZone: "Asia/Colombo",
               })
               .toString()}`}

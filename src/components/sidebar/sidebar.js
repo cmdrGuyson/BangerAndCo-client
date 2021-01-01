@@ -25,6 +25,8 @@ const Sidebar = (props) => {
       props.setDashboard(1);
     } else if (id === "equipment-dashboard-button") {
       props.setDashboard(2);
+    } else if (id === "rent-dashboard-button") {
+      props.setDashboard(3);
     }
   };
 

@@ -14,6 +14,8 @@ import {
   SET_EQUIPMENT,
   SET_TIMES,
   SET_ERRORS_RENT,
+  SET_RENTS,
+  SET_RENT,
 } from "../types";
 
 /* Get all users */
@@ -297,5 +299,49 @@ export const makeRent = (data, id, history) => async (dispatch) => {
       type: SET_ERRORS_RENT,
       payload: error.response.data,
     });
+  }
+};
+
+/* Get all rents */
+export const getAllRents = () => async (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  try {
+    let results = await axios.get("/rents");
+    dispatch({
+      type: SET_RENTS,
+      payload: results.data.rents,
+    });
+  } catch (error) {
+    dispatch({ type: SET_RENTS, payload: [] });
+    console.log(error);
+  }
+};
+
+/* Get rents of logged in user */
+export const getMyRents = () => async (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  try {
+    let results = await axios.get("/my-rents");
+    dispatch({
+      type: SET_RENTS,
+      payload: results.data.rents,
+    });
+  } catch (error) {
+    dispatch({ type: SET_RENTS, payload: [] });
+    console.log(error);
+  }
+};
+
+/* Set rent data in state */
+export const setRent = (rent_data) => async (dispatch) => {
+  dispatch({ type: SET_RENT, payload: rent_data });
+};
+
+/* Change rent status */
+export const changeRentStatus = (id, status) => async (dispatch) => {
+  try {
+    await axios.post(`/rent-status/${id}`, { status });
+  } catch (error) {
+    console.log(error);
   }
 };

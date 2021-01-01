@@ -32,7 +32,7 @@ function RentVehicleModal(props) {
   } = props;
 
   useEffect(() => {
-    props.getAvailableEquipment(times.pickupDate, times.dropoffDate);
+    if (times) props.getAvailableEquipment(times.pickupDate, times.dropoffDate);
   }, [times]);
 
   //Calculate initial total
@@ -131,7 +131,7 @@ function RentVehicleModal(props) {
 
   //Remove unwanted props before passing props to modal
   delete newProps.isVerified;
-  delete newProps.getEquipment;
+  delete newProps.getAvailableEquipment;
   delete newProps.UI;
   delete newProps.history;
   delete newProps.makeRent;
@@ -193,7 +193,7 @@ function RentVehicleModal(props) {
                     </td>
                   </tr>
                   <tr>
-                    <td>Insuarance</td>
+                    <td>Insurance</td>
                     <td>
                       {isOver25(user.dateOfBirth) ? (
                         <Badge

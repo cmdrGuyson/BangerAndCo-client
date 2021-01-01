@@ -184,7 +184,7 @@ function ViewUser(props) {
               {" "}
               <small className="text-muted">
                 {`Registered on ${dayjs(user.createdAt)
-                  .format("MM/DD/YYYY h:mm:ss A [GMT]ZZ", {
+                  .format("DD/MM/YYYY h:mm:ss A [GMT]ZZ", {
                     timeZone: "Asia/Colombo",
                   })
                   .toString()}`}

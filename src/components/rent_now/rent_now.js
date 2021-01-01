@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
+import dayjs from "dayjs";
 
 //CSS
 import "./rent_now.scss";
@@ -32,12 +33,9 @@ function Rent_now(props) {
 
   //Create the minimum pickup and delivery date
   const minDate = () => {
-    const now = new Date();
+    const now = dayjs();
 
-    const day = parseInt(("0" + now.getDate()).slice(-2)) + 1;
-    const month = ("0" + (now.getMonth() + 1)).slice(-2);
-
-    return now.getFullYear() + "-" + month + "-" + day;
+    return now.add(1, "day").format("YYYY-MM-DD");
   };
 
   const handleFormSubmit = (e) => {
