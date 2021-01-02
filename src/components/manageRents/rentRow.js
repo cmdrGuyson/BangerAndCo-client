@@ -6,100 +6,102 @@ import dayjs from "dayjs";
 //REDUX
 import { connect } from "react-redux";
 import { changeRentStatus } from "../../redux/actions/dataActions";
+import { getAllRents } from "../../redux/actions/dataActions";
 
 function RentRow(props) {
-  const [status, setStatus] = useState("pending");
+	const [status, setStatus] = useState("pending");
 
-  useEffect(() => {
-    setStatus(rent.status);
-  }, []);
+	useEffect(() => {
+		setStatus(rent.status);
+	}, []);
 
-  const { rent, onView } = props;
+	const { rent, onView } = props;
 
-  const handleChangeStatus = (status) => {
-    props.changeRentStatus(rent._id, status);
-    setStatus(status);
-  };
+	const handleChangeStatus = (status) => {
+		props.changeRentStatus(rent._id, status);
+		props.getAllRents();
+		setStatus(status);
+	};
 
-  let statusMarkup =
-    status === "pending" ? (
-      <Badge pill variant="secondary">
-        Pending Collection
-      </Badge>
-    ) : status === "collected" ? (
-      <Badge pill variant="warning">
-        Collected
-      </Badge>
-    ) : (
-      <Badge pill variant="success">
-        Returned
-      </Badge>
-    );
+	let statusMarkup =
+		status === "pending" ? (
+			<Badge pill variant="secondary">
+				Pending Collection
+			</Badge>
+		) : status === "collected" ? (
+			<Badge pill variant="warning">
+				Collected
+			</Badge>
+		) : (
+			<Badge pill variant="success">
+				Returned
+			</Badge>
+		);
 
-  let actionMarkup =
-    status === "pending" ? (
-      <Button
-        variant="outline-info"
-        size="sm"
-        onClick={() => handleChangeStatus("collected")}
-      >
-        Set Collected
-      </Button>
-    ) : status === "collected" ? (
-      <Button
-        variant="outline-success"
-        size="sm"
-        onClick={() => handleChangeStatus("returned")}
-      >
-        Set Returned
-      </Button>
-    ) : null;
+	let actionMarkup =
+		status === "pending" ? (
+			<Button
+				variant="outline-info"
+				size="sm"
+				onClick={() => handleChangeStatus("collected")}
+			>
+				Set Collected
+			</Button>
+		) : status === "collected" ? (
+			<Button
+				variant="outline-success"
+				size="sm"
+				onClick={() => handleChangeStatus("returned")}
+			>
+				Set Returned
+			</Button>
+		) : null;
 
-  return (
-    <tr>
-      <td>{rent.vehicle.vehicleNumber}</td>
-      <td>
-        {rent.vehicle.brand} {rent.vehicle.model}
-      </td>
-      <td>
-        {dayjs(rent.rentedFrom)
-          .format("DD/MM/YYYY", {
-            timeZone: "Asia/Colombo",
-          })
-          .toString()}
-      </td>
-      <td>
-        {dayjs(rent.rentedTo)
-          .format("DD/MM/YYYY", {
-            timeZone: "Asia/Colombo",
-          })
-          .toString()}
-      </td>
-      <td>
-        {rent.user.firstName} {rent.user.lastName}
-      </td>
-      <td>${rent.total}</td>
-      <td>{statusMarkup}</td>
-      <td>
-        <Button
-          variant="outline-primary"
-          size="sm"
-          style={{ marginRight: 5 }}
-          onClick={() => onView(rent)}
-        >
-          View
-        </Button>
-        {actionMarkup}
-      </td>
-    </tr>
-  );
+	return (
+		<tr>
+			<td>{rent.vehicle.vehicleNumber}</td>
+			<td>
+				{rent.vehicle.brand} {rent.vehicle.model}
+			</td>
+			<td>
+				{dayjs(rent.rentedFrom)
+					.format("DD/MM/YYYY", {
+						timeZone: "Asia/Colombo",
+					})
+					.toString()}
+			</td>
+			<td>
+				{dayjs(rent.rentedTo)
+					.format("DD/MM/YYYY", {
+						timeZone: "Asia/Colombo",
+					})
+					.toString()}
+			</td>
+			<td>
+				{rent.user.firstName} {rent.user.lastName}
+			</td>
+			<td>${rent.total}</td>
+			<td>{statusMarkup}</td>
+			<td>
+				<Button
+					variant="outline-primary"
+					size="sm"
+					style={{ marginRight: 5 }}
+					onClick={() => onView(rent)}
+				>
+					View
+				</Button>
+				{actionMarkup}
+			</td>
+		</tr>
+	);
 }
 
 RentRow.propTypes = {
-  rent: PropTypes.object.isRequired,
-  changeRentStatus: PropTypes.func.isRequired,
+	rent: PropTypes.object.isRequired,
+	changeRentStatus: PropTypes.func.isRequired,
 };
 
-const mapActionsToProps = { changeRentStatus };
+const mapActionsToProps = { changeRentStatus, getAllRents };
 
 export default connect(null, mapActionsToProps)(RentRow);
