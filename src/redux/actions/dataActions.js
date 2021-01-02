@@ -341,6 +341,7 @@ export const setRent = (rent_data) => async (dispatch) => {
 export const changeRentStatus = (id, status) => async (dispatch) => {
   try {
     await axios.post(`/rent-status/${id}`, { status });
+    dispatch(getAllRents());
   } catch (error) {
     console.log(error);
   }
