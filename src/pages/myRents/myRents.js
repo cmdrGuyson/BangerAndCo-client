@@ -102,7 +102,7 @@ function MyRents(props) {
         <h2 className="rent-title" style={{ marginTop: 80 }}>
           Previous Rents
         </h2>
-        <Card>
+        <Card style={{ marginBottom: 20 }}>
           <Card.Body>
             <Table striped bordered hover className="manage-equipment-table">
               <thead>

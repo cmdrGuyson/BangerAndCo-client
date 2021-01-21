@@ -347,3 +347,31 @@ export const changeRentStatus = (id, status) => async (dispatch) => {
     console.log(error);
   }
 };
+
+/* Update rent equipment */
+export const changeRentEquipment = (id, _equipment, newTotal) => async (
+  dispatch
+) => {
+  dispatch({ type: LOADING_UI });
+  try {
+    let equipment = [];
+    equipment = _equipment.map((e) => e._id);
+
+    let data = {
+      equipment,
+      newTotal,
+    };
+
+    await axios.post(`/update-equipment/${id}`, data);
+    dispatch(getMyRents());
+    dispatch({ type: STOP_LOADING_UI });
+
+    return true;
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: SET_ERRORS_RENT,
+      payload: error.response.data,
+    });
+  }
+};

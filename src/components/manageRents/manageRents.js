@@ -229,6 +229,7 @@ function ManageRents(props) {
           rent={rent}
           show={modalShow}
           onHide={() => setModalShow(false)}
+          manage={true}
         />
       )}
     </div>
