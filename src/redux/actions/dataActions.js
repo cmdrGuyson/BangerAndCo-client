@@ -322,6 +322,7 @@ export const getMyRents = () => async (dispatch) => {
   dispatch({ type: LOADING_DATA });
   try {
     let results = await axios.get("/my-rents");
+    console.log(results.data);
     dispatch({
       type: SET_RENTS,
       payload: results.data.rents,

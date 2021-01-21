@@ -120,7 +120,7 @@ function UploadImages(props) {
                   disabled={loading}
                 >
                   {isAlternateImageUploaded
-                    ? "Upload again"
+                    ? "Upload Again"
                     : "Upload alternate image"}
                 </Button>
                 <input

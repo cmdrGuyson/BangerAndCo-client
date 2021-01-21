@@ -44,8 +44,10 @@ function Vehicles(props) {
   }, [vehicles]);
 
   const handleVehicleClick = (id) => {
-    setVehicleModalShow(true);
-    if (props.isVerified) {
+    if (!props.isBlacklisted) {
+      setVehicleModalShow(true);
+    }
+    if (props.isVerified && !props.isBlacklisted) {
       props.getVehicle(id);
     }
   };
@@ -132,6 +134,14 @@ function Vehicles(props) {
           <a href="/uploadImages">
             Click here to <b>upload verification images</b>
           </a>
+        </Alert>
+        <Alert
+          variant="danger"
+          className="not-verified-message"
+          hidden={!props.isBlacklisted}
+        >
+          You have been <b>blacklisted</b>. You will not be able to rent any
+          vehicles.
         </Alert>
         <h2 className="title">Rent Vehicles</h2>
         <p className="description">
@@ -304,6 +314,7 @@ const mapStateToProps = (state) => ({
   data: state.data,
   firstName: state.user.firstName,
   isVerified: state.user.isVerified,
+  isBlacklisted: state.user.isBlacklisted,
   licenseImageURL: state.user.licenseImageURL,
   alternateIDImageURL: state.user.alternateIDImageURL,
   authenticated: state.user.authenticated,

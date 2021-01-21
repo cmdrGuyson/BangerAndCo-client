@@ -31,7 +31,7 @@ function navbar(props) {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/rent-vehicles">Rent Vehicle</Nav.Link>
             {/* If user is authenticated show "My Rents" link */}
-            {authenticated && <Nav.Link>My Rents</Nav.Link>}
+            {authenticated && <Nav.Link href="/my-rents">My Rents</Nav.Link>}
             {/* If user is an admin show link to "Admin dashboard" */}
             {role === "admin" && (
               <Button

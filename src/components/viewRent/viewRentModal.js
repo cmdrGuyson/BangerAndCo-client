@@ -8,15 +8,17 @@ import "./viewRentModal.scss";
 
 //REDUX
 import { connect } from "react-redux";
-//import {} from "../../redux/actions/dataActions";
+import { getAvailableEquipment } from "../../redux/actions/dataActions";
 
 function ViewRentModal(props) {
   const [selectedEquipment, setSelectedEquipment] = useState([]);
+  const [total, setTotal] = useState(0);
 
   const { rent } = props;
 
   useEffect(() => {
     setSelectedEquipment(rent.additionalEquipment);
+    setTotal(rent.total);
   }, []);
 
   const newProps = { ...props };
@@ -123,7 +125,7 @@ function ViewRentModal(props) {
                   <b>Total</b>
                 </td>
                 <td>
-                  <b>${rent.total}</b>
+                  <b>${total}</b>
                 </td>
               </tr>
             </tbody>
@@ -149,9 +151,12 @@ function ViewRentModal(props) {
 
 ViewRentModal.propTypes = {
   rent: PropTypes.object.isRequired,
+  getAvailableEquipment: PropTypes.func.isRequired,
 };
 
-const mapActionsToProps = {};
+const mapActionsToProps = {
+  getAvailableEquipment,
+};
 
 const mapStateToProps = (state) => ({});
 

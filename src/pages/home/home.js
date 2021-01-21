@@ -33,6 +33,14 @@ function home(props) {
             Click here to <b>upload verification images</b>
           </a>
         </Alert>
+        <Alert
+          variant="danger"
+          className="not-verified-message"
+          hidden={!props.isBlacklisted}
+        >
+          You have been <b>blacklisted</b>. You will not be able to rent any
+          vehicles.
+        </Alert>
         <h2 className="title">Rent Now!</h2>
         <p className="description">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -62,6 +70,7 @@ const mapStateToProps = (state) => ({
   licenseImageURL: state.user.licenseImageURL,
   alternateIDImageURL: state.user.alternateIDImageURL,
   authenticated: state.user.authenticated,
+  isBlacklisted: state.user.isBlacklisted,
   role: state.user.role,
   user: state.user,
 });

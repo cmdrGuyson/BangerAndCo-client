@@ -200,7 +200,11 @@ function ViewUser(props) {
           >
             <Modal.Header closeButton></Modal.Header>
             <Modal.Body className="view-user-modal-body">
-              <img src={user.licenseImageURL} alt="" />
+              <img
+                src={user.licenseImageURL}
+                alt=""
+                style={{ objectFit: "contain", width: 700 }}
+              />
             </Modal.Body>
           </Modal>
 
