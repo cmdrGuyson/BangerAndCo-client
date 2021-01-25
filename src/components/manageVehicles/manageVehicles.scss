@@ -1,30 +1,31 @@
 .vehicle-card {
-  font-family: "Poppins", sans-serif !important;
-  height: 21rem;
-  position: relative;
-  &:hover {
-    cursor: pointer;
-  }
+	font-family: "Poppins", sans-serif !important;
+	height: 21rem;
+	margin-bottom: 1rem;
+	position: relative;
+	&:hover {
+		cursor: pointer;
+	}
 }
 
 .vehicle-card-button {
-  width: 100%;
+	width: 100%;
 }
 
 .fa-plus-square-add {
-  margin-right: 10px;
+	margin-right: 10px;
 }
 
 .vehicle-card-badge {
-  position: absolute;
-  left: 75%;
-  top: 5%;
+	position: absolute;
+	left: 75%;
+	top: 5%;
 }
 
 .reset-button {
-  margin-top: 10px;
+	margin-top: 10px;
 }
 
 .reset-icon {
-  margin-right: 10px;
+	margin-right: 10px;
 }
