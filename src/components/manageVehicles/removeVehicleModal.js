@@ -50,8 +50,12 @@ function RemoveVehicleModal(props) {
       </Modal.Header>
       <Modal.Body>
         <p>Are you sure you want to delete this vehicle?</p>
-        <p className="error-text" hidden={!errors.vehicle}>
-          Cannot delete vehicle
+        <p
+          className="error-text"
+          hidden={!errors.deleteVehicle}
+          style={{ textAlign: "center" }}
+        >
+          {errors.deleteVehicle}
         </p>
       </Modal.Body>
       <Modal.Footer>
