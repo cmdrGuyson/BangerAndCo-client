@@ -1,16 +1,17 @@
 .sidebar {
-  position: fixed;
+  position: fixed !important;
   top: 0;
   bottom: 0;
   left: 0;
   min-height: 100vh !important;
+  width: 15vw !important;
   z-index: 100;
   padding: 48px 0 0;
   background-color: #1e1e1e;
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
 }
 #sidebar-wrapper {
-  width: 100vw;
+  width: 20vw !important;
   margin-left: -1rem;
   -webkit-transition: margin 0.25s ease-out;
   -moz-transition: margin 0.25s ease-out;
