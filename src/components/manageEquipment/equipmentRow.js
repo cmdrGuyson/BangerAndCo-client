@@ -13,13 +13,11 @@ function EquipmentRow(props) {
   const [name, setName] = useState("");
   const [rent, setRent] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [rentedAmount, setRentedAmount] = useState(0);
 
   useEffect(() => {
     setName(props.equipment.name);
     setRent(props.equipment.rent);
     setTotalAmount(props.equipment.totalAmount);
-    setRentedAmount(props.equipment.rentedAmount);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -42,8 +40,7 @@ function EquipmentRow(props) {
     <tr>
       <td>{name}</td>
       <td>{`$${rent}`}</td>
-      <td>{rentedAmount}</td>
-      <td>
+      <td style={{ width: "20%" }}>
         <InputGroup>
           <span>
             <Button
