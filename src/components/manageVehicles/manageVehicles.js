@@ -22,6 +22,13 @@ import { getAllVehicles } from "../../redux/actions/dataActions";
 //CSS
 import "./manageVehicles.scss";
 
+//Import consts
+import {
+  FUEL_TYPES,
+  TRANSMISSION_TYPES,
+  VEHICLE_TYPES,
+} from "../../utils/consts";
+
 function ManageVehicles(props) {
   const [_vehicles, setVehicles] = useState([]);
   const [vehiclePool, setVehiclePool] = useState([]);
@@ -124,6 +131,29 @@ function ManageVehicles(props) {
     setVehiclePool(vehicles);
   };
 
+  // Dropdown select for vehicle types
+  const typeDropdownMarkup = VEHICLE_TYPES.map((type) => (
+    <Dropdown.Item onSelect={() => setValue("type", type.name, type.id)}>
+      {type.name}
+    </Dropdown.Item>
+  ));
+
+  // Dropdown for fuel types
+  const fuelDropdownMarkup = FUEL_TYPES.map((type) => (
+    <Dropdown.Item onSelect={() => setValue("fuelType", type.name, type.id)}>
+      {type.name}
+    </Dropdown.Item>
+  ));
+
+  // Dropdown for transmission types
+  const transmissionDropdownMarkup = TRANSMISSION_TYPES.map((type) => (
+    <Dropdown.Item
+      onSelect={() => setValue("transmission", type.name, type.id)}
+    >
+      {type.name}
+    </Dropdown.Item>
+  ));
+
   return (
     <div>
       <Card className="search-box-users">
@@ -156,23 +186,7 @@ function ManageVehicles(props) {
                     >
                       {transmission}
                     </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        onSelect={() =>
-                          setValue("transmission", "Auto", "auto")
-                        }
-                      >
-                        Auto
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        value="manual"
-                        onSelect={() =>
-                          setValue("transmission", "Manual", "manual")
-                        }
-                      >
-                        Manual
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
+                    <Dropdown.Menu>{transmissionDropdownMarkup}</Dropdown.Menu>
                   </Dropdown>
                 </Col>
                 <Col style={{ padding: 0 }}>
@@ -184,29 +198,7 @@ function ManageVehicles(props) {
                     >
                       {fuel}
                     </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        onSelect={() =>
-                          setValue("fuelType", "Diesel", "diesel")
-                        }
-                      >
-                        Diesel
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onSelect={() =>
-                          setValue("fuelType", "Petrol", "petrol")
-                        }
-                      >
-                        Petrol
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onSelect={() =>
-                          setValue("fuelType", "Hybrid", "hybrid")
-                        }
-                      >
-                        Hybrid
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
+                    <Dropdown.Menu>{fuelDropdownMarkup}</Dropdown.Menu>
                   </Dropdown>
                 </Col>
                 <Col>
@@ -218,56 +210,7 @@ function ManageVehicles(props) {
                     >
                       {type}
                     </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        onSelect={() =>
-                          setValue("type", "Town-Car", "town-car")
-                        }
-                      >
-                        Town-Car
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onSelect={() =>
-                          setValue("type", "Hatchback", "hatchback")
-                        }
-                      >
-                        Hatchback
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onSelect={() =>
-                          setValue("type", "Family-Saloon", "family-saloon")
-                        }
-                      >
-                        Family-Saloon
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onSelect={() =>
-                          setValue("type", "Family-Estate", "family-estate")
-                        }
-                      >
-                        Family-Estate
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onSelect={() => setValue("type", "Van", "van")}
-                      >
-                        Van
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onSelect={() => setValue("type", "SUV", "suv")}
-                      >
-                        SUV
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onSelect={() => setValue("type", "Exotic", "exotic")}
-                      >
-                        Exotic
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onSelect={() => setValue("type", "Sports", "sports")}
-                      >
-                        Sports
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
+                    <Dropdown.Menu>{typeDropdownMarkup}</Dropdown.Menu>
                   </Dropdown>
                 </Col>
                 <Col style={{ padding: 0 }}>

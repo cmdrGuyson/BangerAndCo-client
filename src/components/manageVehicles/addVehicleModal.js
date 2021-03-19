@@ -7,6 +7,13 @@ import { connect } from "react-redux";
 import { addVehicle } from "../../redux/actions/dataActions";
 import { clearErrors } from "../../redux/actions/uiActions";
 
+//Import consts
+import {
+  FUEL_TYPES,
+  TRANSMISSION_TYPES,
+  VEHICLE_TYPES,
+} from "../../utils/consts";
+
 function AddVehicleModal(props) {
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
@@ -60,6 +67,21 @@ function AddVehicleModal(props) {
   };
 
   const newProps = { ...props };
+
+  // Dropdown select for vehicle types
+  const typeDropdownMarkup = VEHICLE_TYPES.map((type) => (
+    <option value={type.id}>{type.name}</option>
+  ));
+
+  // Dropdown for fuel types
+  const fuelDropdownMarkup = FUEL_TYPES.map((type) => (
+    <option value={type.id}>{type.name}</option>
+  ));
+
+  // Dropdown for transmission types
+  const transmissionDropdownMarkup = TRANSMISSION_TYPES.map((type) => (
+    <option value={type.id}>{type.name}</option>
+  ));
 
   //Remove unwanted props before passing props to modal
   delete newProps.UI;
@@ -133,14 +155,7 @@ function AddVehicleModal(props) {
                 value={type}
                 onChange={(e) => setType(e.target.value)}
               >
-                <option value="town-car">Town Car</option>
-                <option value="hatchback">Hatchback</option>
-                <option value="family-saloon">Family Saloon</option>
-                <option value="family-estate">Family Estate</option>
-                <option value="van">Van</option>
-                <option value="suv">SUV</option>
-                <option value="exotic">Exotic</option>
-                <option value="sports">Sports</option>
+                {typeDropdownMarkup}
               </Form.Control>
             </Form.Group>
             <Form.Group as={Col}>
@@ -150,9 +165,7 @@ function AddVehicleModal(props) {
                 onChange={(e) => setFuelType(e.target.value)}
                 value={fuelType}
               >
-                <option value="petrol">Petrol</option>
-                <option value="diesel">Diesel</option>
-                <option value="hybrid">Hybrid</option>
+                {fuelDropdownMarkup}
               </Form.Control>
             </Form.Group>
             <Form.Group as={Col}>
@@ -162,8 +175,7 @@ function AddVehicleModal(props) {
                 onChange={(e) => setTransmission(e.target.value)}
                 value={transmission}
               >
-                <option value="auto">Auto</option>
-                <option value="manual">Manual</option>
+                {transmissionDropdownMarkup}
               </Form.Control>
             </Form.Group>
           </Form.Row>
