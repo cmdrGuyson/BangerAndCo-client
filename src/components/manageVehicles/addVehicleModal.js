@@ -19,9 +19,9 @@ function AddVehicleModal(props) {
   const [model, setModel] = useState("");
   const [vehicleNumber, setVehicleNumber] = useState("");
   const [rent, setRent] = useState(0);
-  const [type, setType] = useState("town-car");
-  const [fuelType, setFuelType] = useState("petrol");
-  const [transmission, setTransmission] = useState("auto");
+  const [type, setType] = useState(VEHICLE_TYPES[0].id);
+  const [fuelType, setFuelType] = useState(FUEL_TYPES[0].id);
+  const [transmission, setTransmission] = useState(TRANSMISSION_TYPES[0].id);
   const [errors, setErrors] = useState({});
 
   //When errors are updated the component is re-rendered to display errors
@@ -60,9 +60,9 @@ function AddVehicleModal(props) {
     setModel("");
     setVehicleNumber("");
     setRent("");
-    setType("town-car");
-    setFuelType("petrol");
-    setTransmission("auto");
+    setType(VEHICLE_TYPES[0].id);
+    setFuelType(FUEL_TYPES[0].id);
+    setTransmission(TRANSMISSION_TYPES[0].id);
     props.clearErrors();
   };
 
