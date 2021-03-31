@@ -295,10 +295,18 @@ export const makeRent = (data, id, history) => async (dispatch) => {
     if (results.data._id) return true;
   } catch (error) {
     console.log(error.response.data);
-    dispatch({
-      type: SET_ERRORS_RENT,
-      payload: error.response.data,
-    });
+
+    if (
+      error.response.status === 403 &&
+      error.response.data.error === "Blacklisted by dmv"
+    ) {
+      history.push("/blacklisted");
+    } else {
+      dispatch({
+        type: SET_ERRORS_RENT,
+        payload: error.response.data,
+      });
+    }
   }
 };
 

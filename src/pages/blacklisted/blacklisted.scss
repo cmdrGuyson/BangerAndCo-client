@@ -1,0 +1,28 @@
+.top_image-blacklisted {
+  height: 100vh;
+  width: 100%;
+  object-fit: cover;
+  background-image: url("../../images/carback.jpg");
+  background: linear-gradient(90deg, #ba0624 0%, #ba0624 80%);
+  background: -webkit-linear-gradient(90deg, #ba0624 0%, #ba0624 80%);
+  background: -moz-linear-gradient(90deg, #ba0624 0%, rgba(0, 0, 0, 0.79) 80%);
+}
+
+.blacklisted-title {
+  font-family: "Poppins", sans-serif;
+  color: white;
+  font-weight: bold;
+  font-size: 3rem;
+  margin-top: 200px;
+}
+
+.blacklisted-description {
+  font-family: "Poppins", sans-serif;
+  color: white;
+  margin-top: 100px;
+  margin-bottom: 70px;
+}
+
+.blacklisted-button {
+  font-family: "Poppins", sans-serif;
+}
