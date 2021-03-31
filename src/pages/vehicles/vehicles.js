@@ -168,7 +168,9 @@ function Vehicles(props) {
           hidden={
             !props.authenticated ||
             props.role === "admin" ||
-            (props.licenseImageURL && props.alternateIDImageURL)
+            (props.licenseImageURL &&
+              props.alternateIDImageURL &&
+              props.userImageURL)
           }
         >
           {`Hello ${props.firstName}! `}
@@ -292,6 +294,7 @@ const mapStateToProps = (state) => ({
   isBlacklisted: state.user.isBlacklisted,
   licenseImageURL: state.user.licenseImageURL,
   alternateIDImageURL: state.user.alternateIDImageURL,
+  userImageURL: state.user.userImageURL,
   authenticated: state.user.authenticated,
   role: state.user.role,
   getVehicle: PropTypes.func.isRequired,
