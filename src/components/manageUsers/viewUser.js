@@ -36,6 +36,7 @@ function ViewUser(props) {
   const [isBlacklisted, setIsBlacklisted] = useState(false);
   const [licenseImageModalShow, setLicenseImageModalShow] = useState(false);
   const [alternateImageModalShow, setAlternateImageModalShow] = useState(false);
+  const [userImageModalShow, setUserImageModalShow] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -156,6 +157,15 @@ function ViewUser(props) {
                     ? "View Alternate Image"
                     : "Alternate image not uploaded"}
                 </Button>
+                <Button
+                  variant="outline-info"
+                  disabled={!user.userImageURL}
+                  onClick={() => setUserImageModalShow(true)}
+                >
+                  {user.userImageURL
+                    ? "View User Image"
+                    : "User image not uploaded"}
+                </Button>
               </ButtonGroup>
 
               <ButtonGroup vertical className="view-user-image-options">
@@ -204,6 +214,23 @@ function ViewUser(props) {
                 src={user.licenseImageURL}
                 alt=""
                 style={{ objectFit: "contain", width: 700 }}
+              />
+            </Modal.Body>
+          </Modal>
+
+          <Modal
+            show={userImageModalShow}
+            onHide={() => setUserImageModalShow(false)}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header closeButton></Modal.Header>
+            <Modal.Body className="view-user-modal-body">
+              <img
+                src={user.userImageURL}
+                alt=""
+                style={{ objectFit: "contain", width: 400 }}
               />
             </Modal.Body>
           </Modal>
