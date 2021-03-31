@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import {
   uploadLicenseImage,
   uploadAlternateImage,
+  uploadUserImage,
 } from "../../redux/actions/userActions";
 
 function UploadImages(props) {
@@ -21,11 +22,12 @@ function UploadImages(props) {
   const [isAlternateImageUploaded, setIsAlternateImageUploaded] = useState(
     false
   );
+  const [isUserImageUploaded, setIsUserImageUploaded] = useState(false);
 
   //Destructure props
   const {
     UI: { loading },
-    user: { licenseImageURL, alternateIDImageURL },
+    user: { licenseImageURL, alternateIDImageURL, userImageURL },
   } = props;
 
   //Update error state when errors passed from props is changed
@@ -41,6 +43,10 @@ function UploadImages(props) {
   useEffect(() => {
     alternateIDImageURL && setIsAlternateImageUploaded(true);
   }, [alternateIDImageURL]);
+
+  useEffect(() => {
+    userImageURL && setIsUserImageUploaded(true);
+  }, [userImageURL]);
 
   //Clicks on hidden input field
   const handleLicenseImageUpload = () => {
@@ -68,6 +74,20 @@ function UploadImages(props) {
     const formData = new FormData();
     formData.append("image", image, image.name);
     props.uploadAlternateImage(formData);
+  };
+
+  //Clicks on hidden input field
+  const handleUserImageUpload = () => {
+    const fileInput = document.getElementById("userImageInput");
+    fileInput.click();
+  };
+
+  //Activates when input field file is changed
+  const handleUserImageChange = (event) => {
+    const image = event.target.files[0];
+    const formData = new FormData();
+    formData.append("image", image, image.name);
+    props.uploadUserImage(formData);
   };
 
   return (
@@ -134,6 +154,33 @@ function UploadImages(props) {
                 <p className="error-text" hidden={!errors.alternateImage}>
                   {errors.alternateImage}
                 </p>
+
+                <p className="upload-label">Upload user image</p>
+                <p
+                  hidden={!isUserImageUploaded}
+                  className="image-uploaded-text"
+                >
+                  [Successfully uploaded]
+                </p>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  onClick={handleUserImageUpload}
+                  disabled={loading}
+                >
+                  {isUserImageUploaded ? "Upload Again" : "Upload user image"}
+                </Button>
+                <input
+                  type="file"
+                  id="userImageInput"
+                  onChange={handleUserImageChange}
+                  hidden="hidden"
+                  accept=".png, .jpeg, .jpg"
+                />
+
+                <p className="error-text" hidden={!errors.userImage}>
+                  {errors.userImage}
+                </p>
               </Card.Body>
             </Card>
           </Col>
@@ -153,7 +200,11 @@ function UploadImages(props) {
             <Button
               variant="primary"
               type="submit"
-              disabled={!isLicenseImageUploaded || !isAlternateImageUploaded}
+              disabled={
+                !isLicenseImageUploaded ||
+                !isAlternateImageUploaded ||
+                !isUserImageUploaded
+              }
               href="/"
             >
               Proceed to home
@@ -168,6 +219,7 @@ function UploadImages(props) {
 UploadImages.propTypes = {
   uploadLicenseImage: PropTypes.func.isRequired,
   uploadAlternateImage: PropTypes.func.isRequired,
+  uploadUserImage: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
 };
@@ -180,6 +232,7 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = {
   uploadLicenseImage,
   uploadAlternateImage,
+  uploadUserImage,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(UploadImages);

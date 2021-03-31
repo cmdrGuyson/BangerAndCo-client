@@ -94,6 +94,21 @@ export const uploadAlternateImage = (formData) => async (dispatch) => {
   }
 };
 
+export const uploadUserImage = (formData) => async (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  try {
+    await axios.post("/user-image", formData);
+    dispatch(getUserData());
+    dispatch({ type: CLEAR_ERRORS });
+    dispatch({ type: STOP_LOADING_UI });
+  } catch (error) {
+    dispatch({
+      type: SET_ERRORS,
+      payload: { error: { userImage: error.response.data.error.message } },
+    });
+  }
+};
+
 const setAuthorizationHeader = (token) => {
   const banger_token = `Bearer ${token}`;
   localStorage.setItem("BangerToken", banger_token);
