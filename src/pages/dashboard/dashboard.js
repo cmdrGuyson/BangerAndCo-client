@@ -10,6 +10,7 @@ import ManageEquipment from "../../components/manageEquipment/manageEquipment";
 import ManageRents from "../../components/manageRents/manageRents";
 import ViewUser from "../../components/manageUsers/viewUser";
 import ViewVehicle from "../../components/manageVehicles/viewVehicle";
+import Prices from "../../components/prices/prices";
 import Sidebar from "../../components/sidebar/sidebar";
 
 //Redux
@@ -34,6 +35,10 @@ const Dashboard = (props) => {
           ) : dashboard === 3 ? (
             <Col xs={10} id="page-content-wrapper">
               <ManageRents />
+            </Col>
+          ) : dashboard === 4 ? (
+            <Col xs={10} id="page-content-wrapper">
+              <Prices />
             </Col>
           ) : (
             <>

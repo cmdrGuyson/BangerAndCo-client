@@ -9,6 +9,7 @@ import {
   SET_TIMES,
   SET_RENTS,
   SET_RENT,
+  SET_PRICES,
 } from "../types";
 
 const initialState = {
@@ -72,6 +73,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         vehicle: action.payload,
+      };
+    case SET_PRICES:
+      return {
+        ...state,
+        prices: action.payload,
+        loading: false,
       };
     default:
       return state;

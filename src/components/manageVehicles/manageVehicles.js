@@ -174,8 +174,8 @@ function ManageVehicles(props) {
                   </InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl
-                  placeholder="Search by name"
-                  aria-label="Search by name"
+                  placeholder="Search for vehicles"
+                  aria-label="Search for vehicles"
                   aria-describedby="basic-addon2"
                   onChange={(e) => search(e.target.value)}
                 />

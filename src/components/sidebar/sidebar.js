@@ -33,6 +33,11 @@ const Sidebar = (props) => {
       props.setDashboard(2);
     } else if (id === "rent-dashboard-button" || id === "rent-dashboard-icon") {
       props.setDashboard(3);
+    } else if (
+      id === "prices-dashboard-button" ||
+      id === "prices-dashboard-icon"
+    ) {
+      props.setDashboard(4);
     }
   };
 

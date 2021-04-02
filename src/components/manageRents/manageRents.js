@@ -143,8 +143,8 @@ function ManageRents(props) {
                     </InputGroup.Text>
                   </InputGroup.Prepend>
                   <FormControl
-                    placeholder="Search by name"
-                    aria-label="Search by name"
+                    placeholder="Search for rents"
+                    aria-label="Search for rents"
                     aria-describedby="basic-addon2"
                     onChange={(e) => search(e.target.value)}
                   />

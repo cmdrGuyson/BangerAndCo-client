@@ -16,6 +16,7 @@ import {
   SET_ERRORS_RENT,
   SET_RENTS,
   SET_RENT,
+  SET_PRICES,
 } from "../types";
 
 /* Get all users */
@@ -381,5 +382,20 @@ export const changeRentEquipment = (id, _equipment, newTotal) => async (
       type: SET_ERRORS_RENT,
       payload: error.response.data,
     });
+  }
+};
+
+/* Get all competitive prices */
+export const getPrices = () => async (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  try {
+    let results = await axios.get("/prices");
+    dispatch({
+      type: SET_PRICES,
+      payload: results.data.prices,
+    });
+  } catch (error) {
+    dispatch({ type: SET_PRICES, payload: [] });
+    console.log(error);
   }
 };
