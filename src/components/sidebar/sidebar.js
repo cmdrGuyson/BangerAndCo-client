@@ -109,6 +109,22 @@ const Sidebar = (props) => {
           </Button>
         </Nav.Item>
         <Nav.Item className="sidebar-item">
+          <Button
+            variant="dark"
+            className={`sidebar-button ${
+              dashboard === 4 && "sidebar-button-active"
+            }`}
+            size="lg"
+            id="prices-dashboard-button"
+            onClick={handleSetDashboard}
+          >
+            <span id="prices-dashboard-icon" onClick={handleSetDashboard}>
+              <i className="fas fa-dollar-sign icon"></i>
+              Prices
+            </span>
+          </Button>
+        </Nav.Item>
+        <Nav.Item className="sidebar-item">
           <Button variant="dark" className="sidebar-button" size="lg" href="/">
             <span id="home-dashboard-icon" onClick={handleSetDashboard}>
               <i className="fas fa-home icon"></i>

@@ -69,18 +69,24 @@ function AddVehicleModal(props) {
   const newProps = { ...props };
 
   // Dropdown select for vehicle types
-  const typeDropdownMarkup = VEHICLE_TYPES.map((type) => (
-    <option value={type.id}>{type.name}</option>
+  const typeDropdownMarkup = VEHICLE_TYPES.map((type, index) => (
+    <option key={index} value={type.id}>
+      {type.name}
+    </option>
   ));
 
   // Dropdown for fuel types
-  const fuelDropdownMarkup = FUEL_TYPES.map((type) => (
-    <option value={type.id}>{type.name}</option>
+  const fuelDropdownMarkup = FUEL_TYPES.map((type, index) => (
+    <option key={index} value={type.id}>
+      {type.name}
+    </option>
   ));
 
   // Dropdown for transmission types
-  const transmissionDropdownMarkup = TRANSMISSION_TYPES.map((type) => (
-    <option value={type.id}>{type.name}</option>
+  const transmissionDropdownMarkup = TRANSMISSION_TYPES.map((type, index) => (
+    <option key={index} value={type.id}>
+      {type.name}
+    </option>
   ));
 
   //Remove unwanted props before passing props to modal

@@ -6,7 +6,6 @@ import {
   Col,
   Row,
   FormControl,
-  CardColumns,
   Dropdown,
 } from "react-bootstrap";
 import PropTypes from "prop-types";
@@ -132,22 +131,29 @@ function ManageVehicles(props) {
   };
 
   // Dropdown select for vehicle types
-  const typeDropdownMarkup = VEHICLE_TYPES.map((type) => (
-    <Dropdown.Item onSelect={() => setValue("type", type.name, type.id)}>
+  const typeDropdownMarkup = VEHICLE_TYPES.map((type, index) => (
+    <Dropdown.Item
+      key={index}
+      onSelect={() => setValue("type", type.name, type.id)}
+    >
       {type.name}
     </Dropdown.Item>
   ));
 
   // Dropdown for fuel types
-  const fuelDropdownMarkup = FUEL_TYPES.map((type) => (
-    <Dropdown.Item onSelect={() => setValue("fuelType", type.name, type.id)}>
+  const fuelDropdownMarkup = FUEL_TYPES.map((type, index) => (
+    <Dropdown.Item
+      key={index}
+      onSelect={() => setValue("fuelType", type.name, type.id)}
+    >
       {type.name}
     </Dropdown.Item>
   ));
 
   // Dropdown for transmission types
-  const transmissionDropdownMarkup = TRANSMISSION_TYPES.map((type) => (
+  const transmissionDropdownMarkup = TRANSMISSION_TYPES.map((type, index) => (
     <Dropdown.Item
+      key={index}
       onSelect={() => setValue("transmission", type.name, type.id)}
     >
       {type.name}
@@ -279,8 +285,8 @@ function ManageVehicles(props) {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          vehiclesMarkup.map((card) => (
-            <Col lg={4} md={4} sm={4}>
+          vehiclesMarkup.map((card, index) => (
+            <Col lg={4} md={4} sm={4} key={index}>
               {" "}
               {card}{" "}
             </Col>

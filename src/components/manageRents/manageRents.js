@@ -68,6 +68,7 @@ function ManageRents(props) {
     <RentRow key={rent._id} rent={rent} onView={setRent} />
   ));
 
+  //Flatten object attributes to avoid nested objects when filtering
   const flatten = (object) => {
     return Object.assign(
       {},
