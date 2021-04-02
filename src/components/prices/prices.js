@@ -54,6 +54,7 @@ function Prices(props) {
       className="search-user-button prices-filter-button"
       variant="outline-primary"
       key={index}
+      onClick={() => filter(element.type)}
     >
       {element.type}
     </Button>
@@ -77,7 +78,7 @@ function Prices(props) {
     </tr>
   ));
 
-  //Search prices
+  //Search prices from name or type
   const search = (input) => {
     const pricesCopy = allPricesConst.map((price) => price);
     const inputs = input.toLowerCase().split(" ");
@@ -100,6 +101,19 @@ function Prices(props) {
     }
     const result = [...new Set(pricesArray)];
     setAllPrices(result);
+  };
+
+  //Filter prices with type
+  const filter = (filter_type) => {
+    const pricesCopy = allPricesConst.map((price) => price);
+    if (filter_type === "all") {
+      setAllPrices(pricesCopy);
+    } else {
+      const filtered = pricesCopy.filter(
+        (element) => element.type === filter_type
+      );
+      setAllPrices(filtered);
+    }
   };
 
   return (
@@ -130,6 +144,7 @@ function Prices(props) {
                     <Button
                       className="search-user-button prices-filter-button"
                       variant="outline-primary"
+                      onClick={() => filter("all")}
                     >
                       All
                     </Button>
