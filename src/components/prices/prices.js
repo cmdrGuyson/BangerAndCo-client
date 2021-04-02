@@ -21,6 +21,8 @@ import "./prices.scss";
 
 function Prices(props) {
   const [pricePool, setPricePool] = useState([]);
+  const [allPrices, setAllPrices] = useState([]);
+  const [allPricesConst, setAllPricesConst] = useState([]);
 
   //Destructure props
   const {
@@ -35,6 +37,14 @@ function Prices(props) {
   useEffect(() => {
     if (prices) {
       setPricePool(prices);
+      let _prices = [];
+      prices.forEach((element) => {
+        element.prices.forEach((price) => {
+          _prices.push({ ...price, type: element.type });
+        });
+      });
+      setAllPrices(_prices);
+      setAllPricesConst(_prices);
     }
   }, [prices]);
 
@@ -50,24 +60,47 @@ function Prices(props) {
   ));
 
   //Markup for competitive prices
-  const pricesMarkup = pricePool.map((element, index) => {
-    return element.prices.map((element_, index_) => (
-      <tr>
-        <td style={{ textAlign: "left" }}>
-          {element_.name}
-          {element_.isLowestPrice && (
-            <Badge pill variant="success" style={{ float: "right" }}>
-              Lowest Price
-            </Badge>
-          )}
-        </td>
-        <td>{element.type}</td>
-        <td>{`$${element_.rentPerDay}`}</td>
-        <td>{`$${element_.rentPerWeek}`}</td>
-        <td>{`$${element_.rentPerMonth}`}</td>
-      </tr>
-    ));
-  });
+  const pricesMarkup = allPrices.map((element, index) => (
+    <tr>
+      <td style={{ textAlign: "left" }} key={index}>
+        {element.name}
+        {element.isLowestPrice && (
+          <Badge pill variant="success" style={{ float: "right" }}>
+            Lowest Price
+          </Badge>
+        )}
+      </td>
+      <td>{element.type}</td>
+      <td>{`$${element.rentPerDay}`}</td>
+      <td>{`$${element.rentPerWeek}`}</td>
+      <td>{`$${element.rentPerMonth}`}</td>
+    </tr>
+  ));
+
+  //Search prices
+  const search = (input) => {
+    const pricesCopy = allPricesConst.map((price) => price);
+    const inputs = input.toLowerCase().split(" ");
+    const searchKeys = ["type", "name"];
+    let pricesArray = [];
+    if (inputs.length === 1 && inputs[0] === "") {
+      pricesArray = pricesCopy;
+    } else {
+      inputs.forEach((word) => {
+        pricesCopy.filter((item) => {
+          return Object.keys(item).some((key) => {
+            if (searchKeys.includes(key)) {
+              if (word.length > 0 && item[key].toLowerCase().includes(word))
+                if (item) pricesArray.push(item);
+            }
+            return null;
+          });
+        });
+      });
+    }
+    const result = [...new Set(pricesArray)];
+    setAllPrices(result);
+  };
 
   return (
     <div className="manage-equipment">
@@ -87,6 +120,7 @@ function Prices(props) {
                     placeholder="Search for prices"
                     aria-label="Search for prices"
                     aria-describedby="basic-addon2"
+                    onChange={(e) => search(e.target.value)}
                   />
                 </InputGroup>
               </Col>
@@ -124,9 +158,9 @@ function Prices(props) {
               </tr>
             </thead>
             <tbody>
-              {!loading && pricePool.length > 0 ? (
+              {!loading && allPrices.length > 0 ? (
                 pricesMarkup
-              ) : pricePool.length === 0 && !loading ? (
+              ) : allPrices.length === 0 && !loading ? (
                 <tr>
                   <td colSpan={5}>
                     <Alert variant="danger">No prices found!</Alert>
