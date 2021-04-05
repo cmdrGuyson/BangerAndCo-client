@@ -20,6 +20,7 @@ function Register(props) {
   const [contactNumber, setContactNumber] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [address, setAddress] = useState("");
   const [errors, setErrors] = useState({});
 
   //Function to generate form control inputs for each field
@@ -31,6 +32,7 @@ function Register(props) {
     changeHandler,
     id,
     pattern,
+    isTextArea,
   }) => {
     const input = (
       <Form.Group controlId={id}>
@@ -44,6 +46,7 @@ function Register(props) {
           required
           name={id}
           pattern={pattern}
+          as={isTextArea && "textarea"}
         />
         <p className="error-text" hidden={!errors[id]}>
           {errors[id]}
@@ -72,6 +75,7 @@ function Register(props) {
       NIC,
       DLN,
       dateOfBirth,
+      address,
     };
     //Use user input to register user
     props.registerUser(data, props.history);
@@ -142,6 +146,14 @@ function Register(props) {
     id: "contactNumber",
     pattern: "[0-9]{10}",
   });
+  const addressInput = useInput({
+    type: "text",
+    value: address,
+    label: "Address",
+    changeHandler: setAddress,
+    id: "address",
+    isTextArea: true,
+  });
 
   return (
     <div className="main_register">
@@ -162,6 +174,7 @@ function Register(props) {
                   {DLNInput}
                   {dateOfBirthInput}
                   {contactNumberInput}
+                  {addressInput}
                   <Button
                     variant="primary"
                     type="submit"

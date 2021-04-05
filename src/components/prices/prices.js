@@ -190,6 +190,15 @@ function Prices(props) {
               )}
             </tbody>
           </Table>
+          {!loading && allPrices.length > 0 ? (
+            <a
+              href="https://amerirentacar.com/self-drive-rates-in-sri-lanka"
+              target="_blank"
+              className="price-link"
+            >
+              Prices gathered from AmeriRentCar
+            </a>
+          ) : null}
         </Card.Body>
       </Card>
     </div>

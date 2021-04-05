@@ -136,6 +136,10 @@ function ViewUser(props) {
                   <Badge variant="secondary">Date of birth</Badge>
                   <span> {user.dateOfBirth}</span>
                 </ListGroup.Item>
+                <ListGroup.Item variant="light">
+                  <Badge variant="secondary">Address</Badge>
+                  <span> {user.address}</span>
+                </ListGroup.Item>
               </ListGroup>
 
               <ButtonGroup vertical className="view-user-image-options">
