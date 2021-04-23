@@ -17,7 +17,10 @@ import ChangeRentModal from "./changeRentModal";
 
 //REDUX
 import { connect } from "react-redux";
-import { uploadVehicleImage } from "../../redux/actions/dataActions";
+import {
+  uploadVehicleImage,
+  toggleVehicleAvailability,
+} from "../../redux/actions/dataActions";
 
 function ViewVehicle(props) {
   //Destructure props
@@ -44,6 +47,11 @@ function ViewVehicle(props) {
     props.uploadVehicleImage(formData, vehicle._id);
   };
 
+  //Handle toggle activate
+  const handleAvailabilityToggle = () => {
+    props.toggleVehicleAvailability(vehicle._id);
+  };
+
   //Update state with errors
   useEffect(() => {
     props.UI.errors ? setErrors(props.UI.errors.error) : setErrors({});
@@ -53,7 +61,7 @@ function ViewVehicle(props) {
     <p>Loading...</p>
   ) : vehicle ? (
     <Fragment>
-      <Card className="view-user-card">
+      <Card className="view-vehicle-card">
         <Badge
           pill
           className="vehicle-card-badge"
@@ -107,6 +115,14 @@ function ViewVehicle(props) {
             </Button>
             <Button variant="outline-info" onClick={handleImageUpload}>
               Change Image
+            </Button>
+            <Button
+              variant={
+                vehicle.isAvailable ? "outline-warning" : "outline-success"
+              }
+              onClick={() => handleAvailabilityToggle()}
+            >
+              {vehicle.isAvailable ? "Set Not-Available" : "Set Available"}
             </Button>
             <Button
               variant="outline-danger"
@@ -166,6 +182,7 @@ ViewVehicle.propTypes = {
   vehicle: PropTypes.object,
   UI: PropTypes.object.isRequired,
   uploadVehicleImage: PropTypes.func.isRequired,
+  toggleVehicleAvailability: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -173,6 +190,6 @@ const mapStateToProps = (state) => ({
   UI: state.UI,
 });
 
-const mapActionsToProps = { uploadVehicleImage };
+const mapActionsToProps = { uploadVehicleImage, toggleVehicleAvailability };
 
 export default connect(mapStateToProps, mapActionsToProps)(ViewVehicle);

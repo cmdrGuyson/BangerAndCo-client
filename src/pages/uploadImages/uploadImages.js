@@ -101,7 +101,7 @@ function UploadImages(props) {
                 <h2 className="logo">Banger&Co</h2>
                 <p className="upload-label">Upload an image of your license</p>
                 <p
-                  hidden={!isAlternateImageUploaded}
+                  hidden={!isLicenseImageUploaded}
                   className="image-uploaded-text"
                 >
                   [Successfully uploaded]

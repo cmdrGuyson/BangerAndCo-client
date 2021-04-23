@@ -6,6 +6,7 @@ exports.VEHICLE_TYPES = [
   { id: "suv", name: "SUV" },
   { id: "exotic", name: "Exotic" },
   { id: "sports", name: "Sports" },
+  { id: "family-estate", name: "Family Estate" },
 ];
 
 exports.FUEL_TYPES = [

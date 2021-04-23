@@ -180,7 +180,7 @@ function Register(props) {
                     type="submit"
                     className="submit-button"
                   >
-                    Submit
+                    Register
                   </Button>
                 </Form>
               </Card.Body>

@@ -234,6 +234,20 @@ export const uploadVehicleImage = (formData, id) => async (dispatch) => {
   }
 };
 
+/* Toggle availability of vehicle */
+export const toggleVehicleAvailability = (id) => async (dispatch) => {
+  //dispatch({ type: LOADING_UI });
+  try {
+    await axios.get(`/vehicle-availability/${id}`);
+    dispatch(getAllVehicles());
+    dispatch(getVehicle(id));
+    dispatch({ type: CLEAR_ERRORS });
+    //dispatch({ type: STOP_LOADING_UI });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 /* Get all equipment */
 export const getEquipment = () => async (dispatch) => {
   dispatch({ type: LOADING_DATA });
