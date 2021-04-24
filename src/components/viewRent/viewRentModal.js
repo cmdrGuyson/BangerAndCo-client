@@ -28,8 +28,8 @@ function ViewRentModal(props) {
 
     //Get available equipment using booking dates of rent
     if (rent.status === "pending") {
-      let pickup = dayjs(rent.rentedFrom).format("DD-MM-YYYY").toString();
-      let dropoff = dayjs(rent.rentedTo).format("DD-MM-YYYY").toString();
+      let pickup = dayjs(rent.rentedFrom).format("YYYY-MM-DD").toString();
+      let dropoff = dayjs(rent.rentedTo).format("YYYY-MM-DD").toString();
       props.getAvailableEquipment(pickup, dropoff);
     }
   }, []);

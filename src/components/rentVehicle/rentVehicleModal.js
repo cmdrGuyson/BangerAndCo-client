@@ -38,6 +38,8 @@ function RentVehicleModal(props) {
   //Calculate initial total
   useEffect(() => {
     if (vehicle) {
+      setSelectedEquipment([]);
+      setTotal(0);
       let rent = vehicle.rent;
       let minutesRented = times.diff;
       if (minutesRented <= 300) {

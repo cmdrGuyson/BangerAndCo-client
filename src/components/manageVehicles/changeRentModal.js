@@ -19,6 +19,7 @@ function ChangeRentModal(props) {
     //Stop page from reloading due to form submit
     event.preventDefault();
     let result = await props.changeRent(props.id, parseFloat(rent));
+    console.log("result", result);
     //If no errors occur hide the modal
     if (result === true) props.onHide();
   };
@@ -61,6 +62,15 @@ function ChangeRentModal(props) {
                 onChange={(e) => setRent(e.target.value)}
               />
             </Col>
+            {errors && (
+              <p
+                className="error-text"
+                hidden={!errors.message}
+                style={{ marginLeft: 17 }}
+              >
+                {errors.message}
+              </p>
+            )}
             <Col sm="3">
               <Button variant="primary" type="submit" disabled={loading}>
                 Change rent

@@ -170,7 +170,8 @@ function Vehicles(props) {
             props.role === "admin" ||
             (props.licenseImageURL &&
               props.alternateIDImageURL &&
-              props.userImageURL)
+              props.userImageURL) ||
+            props.isVerified
           }
         >
           {`Hello ${props.firstName}! `}

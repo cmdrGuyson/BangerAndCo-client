@@ -122,7 +122,7 @@ function ViewVehicle(props) {
               }
               onClick={() => handleAvailabilityToggle()}
             >
-              {vehicle.isAvailable ? "Set Not-Available" : "Set Available"}
+              {vehicle.isAvailable ? "Set Unavailable" : "Set Available"}
             </Button>
             <Button
               variant="outline-danger"

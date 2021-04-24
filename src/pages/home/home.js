@@ -26,7 +26,8 @@ function home(props) {
             props.role === "admin" ||
             (props.licenseImageURL &&
               props.alternateIDImageURL &&
-              props.userImageURL)
+              props.userImageURL) ||
+            props.isVerified
           }
         >
           {`Hello ${props.firstName}! `}
@@ -73,6 +74,7 @@ const mapStateToProps = (state) => ({
   alternateIDImageURL: state.user.alternateIDImageURL,
   userImageURL: state.user.userImageURL,
   authenticated: state.user.authenticated,
+  isVerified: state.user.isVerified,
   isBlacklisted: state.user.isBlacklisted,
   role: state.user.role,
   user: state.user,

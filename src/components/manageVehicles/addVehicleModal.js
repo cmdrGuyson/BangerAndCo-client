@@ -151,6 +151,9 @@ function AddVehicleModal(props) {
                 onChange={(e) => setRent(e.target.value)}
                 required
               />
+              <p className="error-text" hidden={!errors.rent}>
+                {errors.rent}
+              </p>
             </Form.Group>
           </Form.Row>
           <Form.Row>
