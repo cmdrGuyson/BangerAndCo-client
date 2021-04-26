@@ -32,6 +32,7 @@ function ViewRentModal(props) {
       let dropoff = dayjs(rent.rentedTo).format("YYYY-MM-DD").toString();
       props.getAvailableEquipment(pickup, dropoff);
     }
+    // eslint-disable-next-line
   }, []);
 
   //Make equipment list

@@ -13,6 +13,7 @@ import Vehicles from "./pages/vehicles/vehicles";
 import Success from "./pages/success/success";
 import MyRents from "./pages/myRents/myRents";
 import Blacklisted from "./pages/blacklisted/blacklisted";
+import Fraud from "./pages/fraud/fraud";
 
 /* REDUX */
 import { Provider } from "react-redux";
@@ -57,6 +58,7 @@ function App() {
             <AuthRouteAll exact path="/uploadimages" component={UploadImages} />
             <AuthRouteAll exact path="/success" component={Success} />
             <AuthRouteAll exact path="/blacklisted" component={Blacklisted} />
+            <AuthRouteAll exact path="/fraud" component={Fraud} />
             <AuthRouteAdmin exact path="/dashboard" component={Dashboard} />
             <AuthRouteAll exact path="/my-rents" component={MyRents} />
           </Switch>

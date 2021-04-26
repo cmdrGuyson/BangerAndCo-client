@@ -33,6 +33,7 @@ function RentVehicleModal(props) {
 
   useEffect(() => {
     if (times) props.getAvailableEquipment(times.pickupDate, times.dropoffDate);
+    // eslint-disable-next-line
   }, [times]);
 
   //Calculate initial total
@@ -54,6 +55,7 @@ function RentVehicleModal(props) {
         else setTotal((daysRented + 1) * rent);
       }
     }
+    // eslint-disable-next-line
   }, [vehicle]);
 
   const addEquipment = (e) => {

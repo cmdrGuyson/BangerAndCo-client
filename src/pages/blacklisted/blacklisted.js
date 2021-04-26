@@ -10,7 +10,7 @@ import Navbar from "../../components/navbar/navbar";
 //REDUX
 import { connect } from "react-redux";
 
-function success(props) {
+function blacklisted(props) {
   return (
     <div className="top_image-blacklisted">
       <Navbar />
@@ -38,6 +38,6 @@ function success(props) {
 
 const mapStateToProps = (state) => ({});
 
-success.propTypes = {};
+blacklisted.propTypes = {};
 
-export default connect(mapStateToProps)(success);
+export default connect(mapStateToProps)(blacklisted);

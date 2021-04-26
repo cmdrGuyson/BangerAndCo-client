@@ -316,6 +316,11 @@ export const makeRent = (data, id, history) => async (dispatch) => {
       error.response.data.error === "Blacklisted by dmv"
     ) {
       history.push("/blacklisted");
+    } else if (
+      error.response.status === 403 &&
+      error.response.data.error === "Insurance fruad"
+    ) {
+      history.push("/fraud");
     } else {
       dispatch({
         type: SET_ERRORS_RENT,
