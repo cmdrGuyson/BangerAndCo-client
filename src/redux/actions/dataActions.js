@@ -318,7 +318,7 @@ export const makeRent = (data, id, history) => async (dispatch) => {
       history.push("/blacklisted");
     } else if (
       error.response.status === 403 &&
-      error.response.data.error === "Insurance fruad"
+      error.response.data.error === "Insurance fraud"
     ) {
       history.push("/fraud");
     } else {
