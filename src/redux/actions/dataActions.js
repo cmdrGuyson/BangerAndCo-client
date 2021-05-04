@@ -17,6 +17,7 @@ import {
   SET_RENTS,
   SET_RENT,
   SET_PRICES,
+  SET_ALL_EQUIPMENT,
 } from "../types";
 
 /* Get all users */
@@ -260,6 +261,22 @@ export const getEquipment = () => async (dispatch) => {
     });
   } catch (error) {
     dispatch({ type: SET_EQUIPMENT, payload: [] });
+    console.log(error);
+  }
+};
+
+/* Get all equipement for registrerd user */
+export const getAllEquipment = () => async (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  try {
+    let results = await axios.get("/equipment");
+    //console.log(results);
+    dispatch({
+      type: SET_ALL_EQUIPMENT,
+      payload: results.data.equipment,
+    });
+  } catch (error) {
+    dispatch({ type: SET_ALL_EQUIPMENT, payload: [] });
     console.log(error);
   }
 };

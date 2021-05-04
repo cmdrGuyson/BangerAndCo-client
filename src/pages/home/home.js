@@ -26,7 +26,8 @@ function home(props) {
             props.role === "admin" ||
             (props.licenseImageURL &&
               props.alternateIDImageURL &&
-              props.userImageURL) ||
+              props.userImageURL &&
+              props.isVerified) ||
             props.isVerified
           }
         >

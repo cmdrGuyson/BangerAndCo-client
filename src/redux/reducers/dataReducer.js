@@ -10,6 +10,7 @@ import {
   SET_RENTS,
   SET_RENT,
   SET_PRICES,
+  SET_ALL_EQUIPMENT,
 } from "../types";
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
   rents: [],
   times: null,
   loading: false,
+  all_equipment: [],
 };
 
 export default function (state = initialState, action) {
@@ -56,6 +58,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         equipment: action.payload,
+        loading: false,
+      };
+    case SET_ALL_EQUIPMENT:
+      return {
+        ...state,
+        all_equipment: action.payload,
         loading: false,
       };
     case SET_TIMES:

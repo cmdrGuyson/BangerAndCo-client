@@ -11,18 +11,22 @@ import { connect } from "react-redux";
 import {
   getAvailableEquipment,
   changeRentEquipment,
+  getAllEquipment,
 } from "../../redux/actions/dataActions";
 
 function ViewRentModal(props) {
   const [selectedEquipment, setSelectedEquipment] = useState([]);
+  const [allEquipment, setAllEquipment] = useState([]);
   const [_equipment, setEquipment] = useState([]);
   const [total, setTotal] = useState(0);
   const [edited, setEdited] = useState(false);
 
-  const { rent, equipment, loading, UI, manage } = props;
+  const { rent, equipment, loading, UI, manage, all_equipment } = props;
 
   //When component loads
   useEffect(() => {
+    props.getAllEquipment();
+
     setSelectedEquipment(rent.additionalEquipment);
     setTotal(rent.total);
 
@@ -34,6 +38,12 @@ function ViewRentModal(props) {
     }
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if (all_equipment) {
+      setAllEquipment(all_equipment);
+    }
+  }, [all_equipment]);
 
   //Make equipment list
   useEffect(() => {
@@ -55,10 +65,21 @@ function ViewRentModal(props) {
   const addEquipment = (e) => {
     setEdited(true);
     let _selectedEquipment = [...selectedEquipment];
+    let _all_equipment = [...allEquipment];
 
-    const obj = equipment.find((obj) => {
+    console.log(equipment);
+
+    let obj = equipment.find((obj) => {
       return obj._id === e.target.value;
     });
+
+    if (!obj) {
+      obj = _all_equipment.find((obj) => {
+        return obj._id === e.target.value;
+      });
+    }
+
+    if (!obj) return;
 
     //Calculate amount for rent period
     let rentAmount = 0;
@@ -128,6 +149,7 @@ function ViewRentModal(props) {
   //Remove unwanted props before passing props to modal
   delete newProps.rent;
   delete newProps.getAvailableEquipment;
+  delete newProps.getAllEquipment;
   delete newProps.changeRentEquipment;
   delete newProps.loading;
   delete newProps.UI;
@@ -271,9 +293,11 @@ function ViewRentModal(props) {
 ViewRentModal.propTypes = {
   rent: PropTypes.object.isRequired,
   equipment: PropTypes.array,
+  all_equipment: PropTypes.array,
   loading: PropTypes.bool,
   UI: PropTypes.object.isRequired,
   getAvailableEquipment: PropTypes.func.isRequired,
+  getAllEquipment: PropTypes.func.isRequired,
   changeRentEquipment: PropTypes.func.isRequired,
   manage: PropTypes.bool,
 };
@@ -281,10 +305,12 @@ ViewRentModal.propTypes = {
 const mapActionsToProps = {
   getAvailableEquipment,
   changeRentEquipment,
+  getAllEquipment,
 };
 
 const mapStateToProps = (state) => ({
   equipment: state.data.equipment,
+  all_equipment: state.data.all_equipment,
   loading: state.data.loading,
   UI: state.UI,
 });

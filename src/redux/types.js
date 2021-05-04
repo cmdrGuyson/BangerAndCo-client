@@ -23,3 +23,4 @@ export const SET_TIMES = "SET_TIMES";
 export const SET_RENTS = "SET_RENTS";
 export const SET_RENT = "SET_RENT";
 export const SET_PRICES = "SET_PRICES";
+export const SET_ALL_EQUIPMENT = "SET_ALL_EQUIPMENT";
