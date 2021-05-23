@@ -72,9 +72,15 @@ function Prices(props) {
         )}
       </td>
       <td>{element.type}</td>
-      <td>{`$${element.rentPerDay}`}</td>
-      <td>{`$${element.rentPerWeek}`}</td>
-      <td>{`$${element.rentPerMonth}`}</td>
+      <td>{`${
+        element.rentPerDay ? "$" + element.rentPerDay : "Not given"
+      }`}</td>
+      <td>{`${
+        element.rentPerWeek ? "$" + element.rentPerWeek : "Not given"
+      }`}</td>
+      <td>{`${
+        element.rentPerMonth ? "$" + element.rentPerMonth : "Not given"
+      }`}</td>
     </tr>
   ));
 
