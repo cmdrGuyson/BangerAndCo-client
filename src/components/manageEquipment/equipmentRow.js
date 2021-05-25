@@ -14,6 +14,7 @@ function EquipmentRow(props) {
   const [rent, setRent] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
 
+  // Get state variable values on component load
   useEffect(() => {
     setName(props.equipment.name);
     setRent(props.equipment.rent);
@@ -22,12 +23,14 @@ function EquipmentRow(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // When equipment count is incremented
   const handleIncrement = () => {
     props.incrementEquipment(props.equipment._id);
     let total_value = totalAmount;
     setTotalAmount(total_value + 1);
   };
 
+  // When equipment count is decremented
   const handleDecrement = () => {
     if (totalAmount !== 0) {
       props.decrementEquipment(props.equipment._id);

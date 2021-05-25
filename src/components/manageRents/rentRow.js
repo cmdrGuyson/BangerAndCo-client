@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { InputGroup, FormControl, Button, Badge } from "react-bootstrap";
+import { Button, Badge } from "react-bootstrap";
 import PropTypes from "prop-types";
 import dayjs from "dayjs";
 
@@ -12,10 +12,13 @@ function RentRow(props) {
   const [status, setStatus] = useState("pending");
   const [rent, setRent] = useState(null);
 
+  // Get rent status when component loads
   useEffect(() => {
     if (rent) setStatus(rent.status);
+    // eslint-disable-next-line
   }, []);
 
+  // When rent object changes change state for re-render
   useEffect(() => {
     if (props.rent) {
       setRent(props.rent);
@@ -46,6 +49,7 @@ function RentRow(props) {
       </Badge>
     );
 
+  //Dynamic markup for actions
   let actionMarkup =
     status === "pending" ? (
       <Button

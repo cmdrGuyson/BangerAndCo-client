@@ -45,12 +45,14 @@ function ManageRents(props) {
     data: { rents, loading },
   } = props;
 
+  //Set rents object on component load
   useEffect(() => {
     if (rents) {
       setRentPool(rents);
     }
   }, [rents]);
 
+  // Handle status change of rent
   const changeStatus = (_status) => {
     const allRents = rents.map((rent_obj) => rent_obj);
     let result;
@@ -84,9 +86,12 @@ function ManageRents(props) {
     );
   };
 
+  //Search for rent
   const search = (input) => {
     const inputs = input.toLowerCase().split(" ");
     const allRents = rents.map((rent_obj) => rent_obj);
+
+    //Fields to be searched
     const searchKeys = [
       "vehicleNumber",
       "model",

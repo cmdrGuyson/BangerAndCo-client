@@ -43,9 +43,13 @@ function RentVehicleModal(props) {
       setTotal(0);
       let rent = vehicle.rent;
       let minutesRented = times.diff;
-      if (minutesRented <= 300) {
+
+      // Rent period is equal to 5 hours
+      if (minutesRented === 300) {
         setTotal(rent / 2);
-      } else if (minutesRented <= 1440) {
+      }
+      // Rent period less than 24 hours
+      else if (minutesRented <= 1440) {
         setTotal(rent);
       } else {
         let daysRented = Math.floor(minutesRented / 60 / 24);
@@ -83,7 +87,7 @@ function RentVehicleModal(props) {
     }
 
     let _total = total;
-
+    //Add or remove equipment from state and alter total value
     if (_selectedEquipment.includes(e.target.value)) {
       _selectedEquipment.splice(_selectedEquipment.indexOf(e.target.value), 1);
 
@@ -92,10 +96,13 @@ function RentVehicleModal(props) {
       _selectedEquipment.push(e.target.value);
       _total += rentAmount;
     }
+
+    //Set new states and re-render
     setTotal(_total);
     setSelectedEquipment(_selectedEquipment);
   };
 
+  //Handle submit
   const handleMakeRent = async (event) => {
     event.preventDefault();
     const data = {

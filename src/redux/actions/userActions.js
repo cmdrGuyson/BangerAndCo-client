@@ -10,13 +10,14 @@ import {
   STOP_LOADING_UI,
 } from "../types";
 
+/*Log user into the system*/
 export const loginUser = (user_data, history) => async (dispatch) => {
   dispatch({ type: LOADING_UI });
 
   try {
     let results = await axios.post("/login", user_data);
     setAuthorizationHeader(results.data.token);
-    let user = await dispatch(getUserData());
+    await dispatch(getUserData());
     dispatch({ type: CLEAR_ERRORS });
     history.push("/");
   } catch (error) {
@@ -27,6 +28,7 @@ export const loginUser = (user_data, history) => async (dispatch) => {
   }
 };
 
+/*Handle user resgistration*/
 export const registerUser = (user_data, history) => async (dispatch) => {
   dispatch({ type: LOADING_UI });
 
@@ -44,12 +46,14 @@ export const registerUser = (user_data, history) => async (dispatch) => {
   }
 };
 
+/*Log user out of the system*/
 export const logoutUser = () => (dispatch) => {
   localStorage.removeItem("BangerToken");
   delete axios.defaults.headers.common["Authorization"];
   dispatch({ type: SET_UNAUTHENTICATED });
 };
 
+/*Get logged in user's details*/
 export const getUserData = () => async (dispatch) => {
   dispatch({ type: LOADING_USER });
   try {
@@ -64,6 +68,7 @@ export const getUserData = () => async (dispatch) => {
   }
 };
 
+/*Handle license image upload*/
 export const uploadLicenseImage = (formData) => async (dispatch) => {
   dispatch({ type: LOADING_UI });
   try {
@@ -79,6 +84,7 @@ export const uploadLicenseImage = (formData) => async (dispatch) => {
   }
 };
 
+/*Handle alternate image upload*/
 export const uploadAlternateImage = (formData) => async (dispatch) => {
   dispatch({ type: LOADING_UI });
   try {
@@ -94,6 +100,7 @@ export const uploadAlternateImage = (formData) => async (dispatch) => {
   }
 };
 
+/*Handle user image upload*/
 export const uploadUserImage = (formData) => async (dispatch) => {
   dispatch({ type: LOADING_UI });
   try {
@@ -109,6 +116,7 @@ export const uploadUserImage = (formData) => async (dispatch) => {
   }
 };
 
+/*Set authorization header*/
 const setAuthorizationHeader = (token) => {
   const banger_token = `Bearer ${token}`;
   localStorage.setItem("BangerToken", banger_token);

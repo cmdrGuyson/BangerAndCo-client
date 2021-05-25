@@ -81,6 +81,7 @@ function Register(props) {
     props.registerUser(data, props.history);
   };
 
+  // Generate fields using function
   const emailInput = useInput({
     type: "email",
     value: email,

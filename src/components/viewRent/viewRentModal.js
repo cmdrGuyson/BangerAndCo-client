@@ -63,6 +63,7 @@ function ViewRentModal(props) {
 
   //Add or remove an equipment
   const addEquipment = (e) => {
+    // Set edited property as true to enable updating rent
     setEdited(true);
     let _selectedEquipment = [...selectedEquipment];
     let _all_equipment = [...allEquipment];
@@ -88,9 +89,12 @@ function ViewRentModal(props) {
       "minutes"
     );
 
-    if (minutesRented <= 300) {
+    // If rent period is equal to 5 hours
+    if (minutesRented === 300) {
       rentAmount = obj.rent / 2;
-    } else if (minutesRented <= 1440) {
+    }
+    // If rent period is less than 1 day
+    else if (minutesRented <= 1440) {
       rentAmount = obj.rent;
     } else {
       let daysRented = Math.floor(minutesRented / 60 / 24);
@@ -103,6 +107,7 @@ function ViewRentModal(props) {
 
     let _total = total;
 
+    //Add or remove equipment from state and alter total value
     if (_selectedEquipment.some((item) => item._id === obj._id)) {
       _selectedEquipment.splice(
         _selectedEquipment.findIndex((item) => item._id === obj._id),
@@ -114,6 +119,8 @@ function ViewRentModal(props) {
       _selectedEquipment.push(obj);
       _total += rentAmount;
     }
+
+    //Set new state
     setTotal(_total);
     setSelectedEquipment(_selectedEquipment);
   };
