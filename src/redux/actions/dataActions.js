@@ -394,32 +394,31 @@ export const changeRentStatus = (id, status) => async (dispatch) => {
 };
 
 /* Update rent equipment */
-export const changeRentEquipment = (id, _equipment, newTotal) => async (
-  dispatch
-) => {
-  dispatch({ type: LOADING_UI });
-  try {
-    let equipment = [];
-    equipment = _equipment.map((e) => e._id);
+export const changeRentEquipment =
+  (id, _equipment, newTotal) => async (dispatch) => {
+    dispatch({ type: LOADING_UI });
+    try {
+      let equipment = [];
+      equipment = _equipment.map((e) => e._id);
 
-    let data = {
-      equipment,
-      newTotal,
-    };
+      let data = {
+        equipment,
+        newTotal,
+      };
 
-    await axios.post(`/update-equipment/${id}`, data);
-    dispatch(getMyRents());
-    dispatch({ type: STOP_LOADING_UI });
+      await axios.post(`/update-equipment/${id}`, data);
+      dispatch(getMyRents());
+      dispatch({ type: STOP_LOADING_UI });
 
-    return true;
-  } catch (error) {
-    console.log(error);
-    dispatch({
-      type: SET_ERRORS_RENT,
-      payload: error.response.data,
-    });
-  }
-};
+      return true;
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: SET_ERRORS_RENT,
+        payload: error.response.data,
+      });
+    }
+  };
 
 /* Get all competitive prices */
 export const getPrices = () => async (dispatch) => {
