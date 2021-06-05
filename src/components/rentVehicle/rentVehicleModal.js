@@ -206,7 +206,8 @@ function RentVehicleModal(props) {
                   <tr>
                     <td>Insurance</td>
                     <td>
-                      {isOver25(user.dateOfBirth) ? (
+                      {isOver25(user.dateOfBirth) ||
+                      vehicle.type === "town-car" ? (
                         <Badge
                           pill
                           variant="success"

@@ -217,7 +217,7 @@ function ViewUser(props) {
               <img
                 src={user.licenseImageURL}
                 alt=""
-                style={{ objectFit: "contain", width: 700 }}
+                style={{ objectFit: "contain", width: "100%" }}
               />
             </Modal.Body>
           </Modal>
@@ -248,7 +248,11 @@ function ViewUser(props) {
           >
             <Modal.Header closeButton></Modal.Header>
             <Modal.Body className="view-user-modal-body">
-              <img src={user.alternateIDImageURL} alt="" />
+              <img
+                style={{ objectFit: "contain", width: "100%" }}
+                src={user.alternateIDImageURL}
+                alt=""
+              />
             </Modal.Body>
           </Modal>
         </>
