@@ -1,3 +1,5 @@
+`All rights for the source code and other related material are reserved`
+
 # Banger&Co Rentals
 
 A fully funtional web application for a vehicle renting company.
