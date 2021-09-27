@@ -9,3 +9,5 @@ Performs various integrations with 3rd party systems.
 <img src="2.png">
 <img src="1.png">
 <img src="4.png">
+
+Backend - https://github.com/cmdrGuyson/BangerAndCo-server
